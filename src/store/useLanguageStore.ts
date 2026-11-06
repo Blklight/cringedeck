@@ -1,15 +1,20 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-export const useLanguageStore = create(
+export interface LanguageStore {
+  language: string;
+  setLanguage: (language: string) => void;
+}
+
+export const useLanguageStore = create<LanguageStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       language: "pt-br",
-      setLanguage: (language: string) => set({ language }),
+      setLanguage: (language) => set({ language }),
     }),
     {
       name: "lang-storage",
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+    },
+  ),
 );

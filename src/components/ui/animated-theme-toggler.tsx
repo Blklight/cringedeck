@@ -1,106 +1,57 @@
 "use client";
 
-import { BookOpen, Laptop, Monitor, Moon, Sun, SunDim } from "lucide-react";
-import { useRef, useState } from "react";
+import { BookOpen, Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useRef } from "react";
 import { flushSync } from "react-dom";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { useLanguageStore } from "@/store/useLanguageStore";
-import type { LanguageStore } from "@/utils/interfaces";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-
-type props = {
-  className?: string;
-};
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { useLanguageStore } from "@/store/useLanguageStore";
 
 type Theme = "light" | "dark" | "book" | "system";
 
-export const AnimatedThemeToggler = ({ className }: props) => {
-  const { theme, setTheme } = useTheme();
-  const [systemTheme, setSystemTheme] = useState<"light" | "dark">("light");
-  const [open, setOpen] = useState(false);
-  const { language, setLanguage } = useLanguageStore() as LanguageStore;
-  const themes: Theme[] = ["light", "dark", "system"];
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+const OPTIONS: { theme: Theme; label: string; icon: typeof Sun }[] = [
+  { theme: "light", label: "Claro", icon: Sun },
+  { theme: "dark", label: "Escuro", icon: Moon },
+  { theme: "book", label: "Livro", icon: BookOpen },
+  { theme: "system", label: "Sistema", icon: Laptop },
+];
 
-  const isDarkMode = theme === "dark";
+export function AnimatedThemeToggler({ className }: { className?: string }) {
+  const { setTheme } = useTheme();
+  const language = useLanguageStore((s) => s.language);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const label =
+    language === "en-us"
+      ? "Toggle light and dark modes"
+      : "Alternar modos de luz e escuro";
 
-  const changeTheme = async () => {
-    if (!buttonRef.current) return;
-
-    const newTheme = isDarkMode ? "light" : "dark";
-
-    // Verifica se o browser suporta View Transitions
-    if (!document.startViewTransition) {
-      // Fallback para browsers que não suportam
-      setTheme(newTheme);
+  const changeTheme = async (theme: Theme) => {
+    const trigger = triggerRef.current;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (!trigger || !document.startViewTransition || reduceMotion) {
+      setTheme(theme);
       return;
     }
 
     await document.startViewTransition(() => {
-      flushSync(() => {
-        setTheme(newTheme);
-      });
+      flushSync(() => setTheme(theme));
     }).ready;
 
-    const { top, left, width, height } =
-      buttonRef.current.getBoundingClientRect();
-    const y = top + height / 2;
+    const { top, left, width, height } = trigger.getBoundingClientRect();
     const x = left + width / 2;
-
-    const right = window.innerWidth - left;
-    const bottom = window.innerHeight - top;
-    const maxRad = Math.hypot(Math.max(left, right), Math.max(top, bottom));
-
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${maxRad}px at ${x}px ${y}px)`,
-        ],
-      },
-      {
-        duration: 700,
-        easing: "ease-in-out",
-        pseudoElement: "::view-transition-new(root)",
-      },
+    const y = top + height / 2;
+    const maxRad = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
     );
-  };
-
-  const handleChangeTheme = async (theme: Theme) => {
-    console.log("Changing to theme:", buttonRef.current);
-    if (!buttonRef.current) return;
-
-    const newTheme = theme;
-    console.log("New Theme:", newTheme);
-
-    // Verifica se o browser suporta View Transitions
-    if (!document.startViewTransition) {
-      // Fallback para browsers que não suportam
-      setTheme(newTheme);
-      return;
-    }
-
-    await document.startViewTransition(() => {
-      flushSync(() => {
-        setTheme(newTheme);
-      });
-    }).ready;
-
-    const { top, left, width, height } =
-      buttonRef.current.getBoundingClientRect();
-    const y = top + height / 2;
-    const x = left + width / 2;
-
-    const right = window.innerWidth - left;
-    const bottom = window.innerHeight - top;
-    const maxRad = Math.hypot(Math.max(left, right), Math.max(top, bottom));
 
     document.documentElement.animate(
       {
@@ -118,85 +69,51 @@ export const AnimatedThemeToggler = ({ className }: props) => {
   };
 
   return (
-    <>
-      <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            className="flex gap-1 justify-center items-center w-12 h-10 px-4 hover:bg-[#252525] dark:hover:bg-[#eaeaea] text-[#252525] hover:text-[#eaeaea] dark:text-[#eaeaea] dark:hover:text-[#252525] rounded-xs cursor-pointer outline-none"
-            suppressHydrationWarning
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-4.5"
-              aria-label={
-                language === "en-us"
-                  ? "Toggle light and dark modes"
-                  : "Alternar modos de luz e escuro"
-              }
-            >
-              <title>
-                {language === "en-us"
-                  ? "Toggle light and dark modes"
-                  : "Alternar modos de luz e escuro"}
-              </title>
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-              <path d="M12 3l0 18" />
-              <path d="M12 9l4.65 -4.65" />
-              <path d="M12 14.3l7.37 -7.37" />
-              <path d="M12 19.6l8.85 -8.85" />
-            </svg>
-
-            <span className="sr-only">Toggle theme</span>
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          className="rounded-xs border-[#252525] dark:border-[#eaeaea]"
-          disablePortal={false}
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger
+        ref={triggerRef}
+        aria-label={label}
+        className={cn(
+          "flex h-10 w-12 cursor-pointer items-center justify-center gap-1 rounded-xs px-4 text-[#252525] outline-none hover:bg-[#252525] hover:text-[#eaeaea] focus-visible:ring-2 focus-visible:ring-ring dark:text-[#eaeaea] dark:hover:bg-[#eaeaea] dark:hover:text-[#252525]",
+          className,
+        )}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="size-4.5"
+          aria-hidden="true"
         >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+          <path d="M12 3l0 18" />
+          <path d="M12 9l4.65 -4.65" />
+          <path d="M12 14.3l7.37 -7.37" />
+          <path d="M12 19.6l8.85 -8.85" />
+        </svg>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="end"
+        className="rounded-xs border-[#252525] dark:border-[#eaeaea]"
+      >
+        {OPTIONS.map(({ theme, label: optionLabel, icon: Icon }) => (
           <DropdownMenuItem
-            ref={buttonRef}
-            className="rounded-xs cursor-pointer"
-            onClick={() => handleChangeTheme("light")}
+            key={theme}
+            className="cursor-pointer rounded-xs"
+            onClick={() => changeTheme(theme)}
           >
-            <Sun className="mr-1 h-4 w-4" /> Claro
+            <Icon className="mr-1 size-4" />
+            {optionLabel}
           </DropdownMenuItem>
-          <DropdownMenuItem
-            ref={buttonRef}
-            className="rounded-xs cursor-pointer"
-            onClick={() => handleChangeTheme("dark")}
-          >
-            <Moon className="mr-1 h-4 w-4" />
-            Escuro
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            ref={buttonRef}
-            className="rounded-xs cursor-pointer"
-            onClick={() => handleChangeTheme("book")}
-          >
-            <BookOpen className="mr-1 h-4 w-4" />
-            Livro
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            ref={buttonRef}
-            className="rounded-xs cursor-pointer"
-            onClick={() => handleChangeTheme("system")}
-          >
-            <Laptop className="mr-1 h-4 w-4" />
-            Sistema
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
-};
+}

@@ -37,7 +37,7 @@ cp .env.example .env.local
 bun run dev
 ```
 
-App em `http://localhost:3000` e showcase de componentes em `http://localhost:3000/components`.
+App em `http://localhost:3000`.
 
 ## Scripts
 
@@ -59,16 +59,15 @@ Sempre rode `bun run typecheck`, `bun run lint` e `bun run test` antes de finali
 src/
 ├── app/
 │   ├── layout.tsx          # providers (tema, query, tooltip, toaster) + fontes
-│   ├── page.tsx            # home de exemplo
-│   ├── globals.css         # tokens/tema Tailwind v4 + animações
-│   └── components/page.tsx # showcase dos 71 componentes
+│   ├── page.tsx            # entrada do jogo
+│   └── globals.css         # tokens/tema Tailwind v4 + animações
 ├── assets/images/          # imagens estáticas (ruído/fundo)
 ├── components/
 │   ├── layout-base.tsx     # shell visual (moldura/background)
 │   ├── theme-provider.tsx  # wrapper do next-themes
 │   ├── query-provider.tsx  # TanStack Query + devtools
 │   ├── ui/                 # 71 componentes (base-vega / Base UI)
-│   └── showcase/           # registry + demos da página /components
+│   └── game/               # telas do jogo (home, lobby, mesa)
 ├── hooks/
 │   ├── use-controllable-state.ts
 │   └── use-mobile.ts
@@ -94,7 +93,6 @@ tests/
 `src/components/ui/` traz 71 componentes no style `base-vega` (shadcn) sobre Base UI — formulários, overlays, menus, dados e um conjunto de componentes custom (HoloCard, TerminalAnimation, PollWidget, DitherShader, ...).
 
 - Para adicionar um novo: `bunx shadcn@latest add <nome> --overwrite --yes`.
-- A página `/components` renderiza um demo de cada componente. Para incluir um novo no showcase, crie o demo em `src/components/showcase/demos/<categoria>.tsx` e registre o item na categoria correspondente.
 
 ## Convenções
 

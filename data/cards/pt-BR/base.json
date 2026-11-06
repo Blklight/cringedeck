@@ -1,0 +1,2512 @@
+{
+  "id": "base",
+  "lang": "pt-BR",
+  "name": "Base (Brasil)",
+  "description": "Baralho base da edição brasileira de Print & Play.",
+  "source": "Cards Against Humanity — Print & Play Brasil",
+  "license": "CC BY-NC-SA 4.0",
+  "black": [
+    {
+      "id": "pt-BR.base.b001",
+      "text": "Ei Reddit! Eu estou ____. Me pergunte qualquer coisa.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b002",
+      "text": "Apresentando Baseball X-Tremo! É igual baseball, mas com ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b003",
+      "text": "Qual é o prazer secreto do Batman?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b004",
+      "text": "A Administração de Segurança dos Transportes agora proíbe ____ em aviões.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b005",
+      "text": "Próximo livro de J.K. Rowling: Harry Potter e a câmara de ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b006",
+      "text": "É isso aí, eu matei ____. Você quer saber como? ____.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b007",
+      "text": "Desculpe, professor, mas não consegui terminar meu dever de casa porque ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b008",
+      "text": "E o Oscar de ____ vai para ____.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b009",
+      "text": "Cara, não vai naquele banheiro. Tem ____ lá.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b010",
+      "text": "Como eu perdi minha virgindade?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b011",
+      "text": "É uma pena que as crianças hoje em dia estejam todas se envolvendo com ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b012",
+      "text": "Passo 1: ____. Passo 2: ____. Passo 3: Lucro.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b013",
+      "text": "Aposto que não pode ter só um!",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b014",
+      "text": "Crianças, não preciso de drogas para ficar chapado. Estou chapado de ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b015",
+      "text": "Para o meu próximo truque, vou tirar ____ de ____.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b016",
+      "text": "Flavio Bolsonaro não pode gozar sem ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b017",
+      "text": "No novo filme original do Disney Channel, Hannah Montana tem dificuldade com ____ pela primeira vez.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b018",
+      "text": "Qual é o meu poder secreto?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b019",
+      "text": "Vou fazer um detox esta semana. Nada além de suco de couve e ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b020",
+      "text": "____ + ____ = ____.",
+      "pick": 3
+    },
+    {
+      "id": "pt-BR.base.b021",
+      "text": "Quando o Faraó não fez nada, Moisés chamou a Praga de ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b022",
+      "text": "Só uma vez, eu gostaria de ouvir você falar “Obrigado, mãe. Obrigado por ____.”",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b023",
+      "text": "Papai, por que a mamãe está chorando?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b024",
+      "text": "Eu estava louco de ácido, e ____ virou ____.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b025",
+      "text": "50% de todos os casamentos terminam em ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b026",
+      "text": "Meus compatriotas: Antes que a década acabe, teremos ____ na lua!",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b027",
+      "text": "Nesta temporada em Steppenwolf, a clássica peça existencial de Samuel Beckett: Esperando por ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b028",
+      "text": "Em vez de carvão, o Papai Noel vai dar ____ para as crianças más.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b029",
+      "text": "A vida dos índios mudou para sempre quando o homem branco apresentou ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b030",
+      "text": "O que as escolas públicas estão usando para inspirar os alunos do centro da cidade a terem sucesso?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b031",
+      "text": "Talvez ela tenha nascido com isso. Talvez seja ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b032",
+      "text": "O que o ex-presidente Fernando Collor está pensando agora?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b033",
+      "text": "Pessoas brancas gostam de ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b034",
+      "text": "____ é uma ladeira escorregadia que leva a ____.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b035",
+      "text": "Por que estou todo dolorido?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b036",
+      "text": "Um jantar romântico à luz de velas não estaria completo sem ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b037",
+      "text": "Acabei de ver um vídeo triste! Por favor, retweet!! #pare____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b038",
+      "text": "Dica legal! Quando o seu homem te pedir para descer nele, tente surpreender ele com ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b039",
+      "text": "A viagem de turma foi completamente arrasada por ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b040",
+      "text": "Qual é o melhor amigo da mulher?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b041",
+      "text": "Caro Abby, estou tendo um pouco de dificuldade com ____ e gostaria de seu conselho.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b042",
+      "text": "No novo suspense de Jordan Peele, uma jovem família descobre que ____ realmente foi ____.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b043",
+      "text": "Quando eu for Presidente, vou criar um departamento de ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b044",
+      "text": "O que meus pais estão escondendo de mim?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b045",
+      "text": "O que nunca falha em animar uma festa?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b046",
+      "text": "Se você gosta de ____, você pode ser um caipira.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b047",
+      "text": "Fazer haiku.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b048",
+      "text": "O que fez meu primeiro beijo ser tão estranho?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b049",
+      "text": "E aí pessoal, bem-vindos ao Chili’s! Vocês querem iniciar a noite com ____?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b050",
+      "text": "“Eu tenho 99 problemas mas ____ não é um deles.”",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b051",
+      "text": "____. É uma armadilha.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b052",
+      "text": "O novo reality show do Hulu apresenta doze solteiras gostosas vivendo com ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b053",
+      "text": "O que a vóvó acharia bizarro, mas estranhamente charmoso?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b054",
+      "text": "____. Era tão foda.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b055",
+      "text": "Eu nunca entendi direito ____ até eu encontrar ____.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b056",
+      "text": "Durante o sexo, eu gosto de pensar em ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b057",
+      "text": "O que acabou com meu último relacionamento?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b058",
+      "text": "O que é esse som?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b059",
+      "text": "Uh, ei pessoal, eu sei que isso foi minha ideia, mas estou tendo sérias dúvidas sobre ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b060",
+      "text": "Por que eu estou grudento?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b061",
+      "text": "Eu não sou médico, mas tenho certeza de que você está sofrendo de algo chamado “____”.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b062",
+      "text": "O que tem ao montes no céu?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b063",
+      "text": "Depois de 4 álbuns de platina e três Grammys, é hora de voltar para as minhas raízes, para o que me inspirou a fazer música: ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b064",
+      "text": "O que sempre te faz conseguir transar?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b065",
+      "text": "Eles falaram que estávamos loucos. Eles falaram que não conseguiríamos colocar ____ dentro de ____. Eles estavam errados.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b066",
+      "text": "Sky® Apresenta “____: a história de ____”.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b067",
+      "text": "____: testado por crianças, aprovado por mães.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b068",
+      "text": "Por que eu não consigo dormir de noite?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b069",
+      "text": "O que é esse cheiro?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b070",
+      "text": "Por que a Brett está tão suada?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b071",
+      "text": "Esse é o jeito que o mundo acaba. Esse é o jeito que o mundo acaba. Não com um boom, mas com ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b072",
+      "text": "Indo para Broadway, ____: O Musical.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b073",
+      "text": "Aqui é a igreja. Aqui é a capela. Abra as portas. E aqui está ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b074",
+      "text": "Mas antes de te matar, Sr. Bond, eu devo te mostrar ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b075",
+      "text": "Um estudo laboratorial recente mostra que alunos de graduação fazem 50% menos sexo após serem expostos a ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b076",
+      "text": "Apresentando a incrível dupla de super-herói e seu ajudante! O ____ e ____!",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.base.b077",
+      "text": "A seguir na ESPN2: A série mundial de ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b078",
+      "text": "Quando eu for bilionário, eu vou erguer uma estátua de 15 metros para comemorar ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b079",
+      "text": "Os historiadores militares se lembram de Alexandre, o Grande, por seu uso brilhante de ____ contra os persas.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b080",
+      "text": "Guerra! Para que isso é bom?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b081",
+      "text": "O que me dá gás incontrolável?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b082",
+      "text": "A nova SW4. Com o poder e espaço para levar ____ com você para qualquer lugar.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b083",
+      "text": "Bom, se me dão licença, senhores, tenho um encontro com ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b084",
+      "text": "A medicina alternativa agora está adotando os poderes curativos de ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b085",
+      "text": "Como mãe de cinco meninos bagunceiros, estou acostumada a ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b086",
+      "text": "____. Bate aqui, irmão.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b087",
+      "text": "Hoje no Casos de Família: “Socorro! Meu filho está ____!”",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b088",
+      "text": "Eu me virei com uma ajudinha do ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b089",
+      "text": "★☆☆☆☆ NÃO vão aqui! Achei ____ no meu fettuccine alfredo!",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b090",
+      "text": "Eu bebo para esquecer ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b091",
+      "text": "Eu sou LeBron James, e quando não estou enterrando, eu amo ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b092",
+      "text": "O que faz a vida valer a pena?",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b093",
+      "text": "Arby: Nós temos ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b094",
+      "text": "Sr. e Sra. Diaz, nós chamamos vocês aqui porque estamos preocupados com a Cynthia. Vocês sabem que a filha de vocês é ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b095",
+      "text": "Se você não pode estar com quem você ama, ame ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b096",
+      "text": "Trazido para você pela Bud Light®, a cerveja oficial do ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b097",
+      "text": "Clique aqui para ____!!!",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b098",
+      "text": "Ei, dá uma olhada nisso! Eu chamo esse movimento de dança de “____”.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b099",
+      "text": "O velho MacDonald tinha um ____. I-A-I-A-O.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.base.b100",
+      "text": "Loja de roupas masculinas: Você vai gostar de ____. Eu garanto.",
+      "pick": 1
+    }
+  ],
+  "white": [
+    {
+      "id": "pt-BR.base.w001",
+      "text": "Silêncio."
+    },
+    {
+      "id": "pt-BR.base.w002",
+      "text": "A ilusão de escolha em uma sociedade altamente capitalista."
+    },
+    {
+      "id": "pt-BR.base.w003",
+      "text": "Muitos morcegos."
+    },
+    {
+      "id": "pt-BR.base.w004",
+      "text": "Fome extrema."
+    },
+    {
+      "id": "pt-BR.base.w005",
+      "text": "Bactéria comedora de carne."
+    },
+    {
+      "id": "pt-BR.base.w006",
+      "text": "Cobras sexuais voadoras."
+    },
+    {
+      "id": "pt-BR.base.w007",
+      "text": "Não dar a mínima para países de terceiro mundo."
+    },
+    {
+      "id": "pt-BR.base.w008",
+      "text": "fmãs."
+    },
+    {
+      "id": "pt-BR.base.w009",
+      "text": "Uma desculpa lamentável para um pai."
+    },
+    {
+      "id": "pt-BR.base.w010",
+      "text": "Vendo o que acontece quando você tranca pessoas em um quarto com gaivotas famintas."
+    },
+    {
+      "id": "pt-BR.base.w011",
+      "text": "A crucificação."
+    },
+    {
+      "id": "pt-BR.base.w012",
+      "text": "Polícia antidrogas."
+    },
+    {
+      "id": "pt-BR.base.w013",
+      "text": "72 virgens."
+    },
+    {
+      "id": "pt-BR.base.w014",
+      "text": "Audiência ao vivo."
+    },
+    {
+      "id": "pt-BR.base.w015",
+      "text": "Um paradoxo de viagem no tempo."
+    },
+    {
+      "id": "pt-BR.base.w016",
+      "text": "Cozinha mexicana autêntica."
+    },
+    {
+      "id": "pt-BR.base.w017",
+      "text": "Cometendo crimes."
+    },
+    {
+      "id": "pt-BR.base.w018",
+      "text": "COVID-19."
+    },
+    {
+      "id": "pt-BR.base.w019",
+      "text": "Dívida aleijante."
+    },
+    {
+      "id": "pt-BR.base.w020",
+      "text": "Problemas paternais."
+    },
+    {
+      "id": "pt-BR.base.w021",
+      "text": "Calcinhas usadas."
+    },
+    {
+      "id": "pt-BR.base.w022",
+      "text": "Um pum tão poderoso que acorda gigantes dos seus mil anos de sono."
+    },
+    {
+      "id": "pt-BR.base.w023",
+      "text": "Ex Presidente Lula."
+    },
+    {
+      "id": "pt-BR.base.w024",
+      "text": "Nú frontal completo."
+    },
+    {
+      "id": "pt-BR.base.w025",
+      "text": "Me cobrir com queijo parmesão e pimenta porque eu sou uma pizza."
+    },
+    {
+      "id": "pt-BR.base.w026",
+      "text": "Botar um ovo."
+    },
+    {
+      "id": "pt-BR.base.w027",
+      "text": "Ficar pelado e assistir Nickelodeon."
+    },
+    {
+      "id": "pt-BR.base.w028",
+      "text": "Fingir se importar."
+    },
+    {
+      "id": "pt-BR.base.w029",
+      "text": "Ter grandes sonhos, mas nenhuma maneira realista de atingií-los."
+    },
+    {
+      "id": "pt-BR.base.w030",
+      "text": "Ver a vóvó pelada."
+    },
+    {
+      "id": "pt-BR.base.w031",
+      "text": "Catarro."
+    },
+    {
+      "id": "pt-BR.base.w032",
+      "text": "A inevitável morte quente do universo."
+    },
+    {
+      "id": "pt-BR.base.w033",
+      "text": "O milagre do nascimento."
+    },
+    {
+      "id": "pt-BR.base.w034",
+      "text": "O arrebatamento."
+    },
+    {
+      "id": "pt-BR.base.w035",
+      "text": "Ter um derrame."
+    },
+    {
+      "id": "pt-BR.base.w036",
+      "text": "Privilégio branco."
+    },
+    {
+      "id": "pt-BR.base.w037",
+      "text": "Emergir do oceano e destruir Tóquio."
+    },
+    {
+      "id": "pt-BR.base.w038",
+      "text": "O Papa-Búrguer do McDonald's."
+    },
+    {
+      "id": "pt-BR.base.w039",
+      "text": "Desodorante AXE."
+    },
+    {
+      "id": "pt-BR.base.w040",
+      "text": "Sangue de Cristo."
+    },
+    {
+      "id": "pt-BR.base.w041",
+      "text": "Posição papai e mamãe fofinha e com beijos."
+    },
+    {
+      "id": "pt-BR.base.w042",
+      "text": "BATMAN!"
+    },
+    {
+      "id": "pt-BR.base.w043",
+      "text": "Agricultura."
+    },
+    {
+      "id": "pt-BR.base.w044",
+      "text": "Mal ganhando R$25,000 por ano."
+    },
+    {
+      "id": "pt-BR.base.w045",
+      "text": "Seleção natural."
+    },
+    {
+      "id": "pt-BR.base.w046",
+      "text": "Aborto com cabide."
+    },
+    {
+      "id": "pt-BR.base.w047",
+      "text": "Sexo com Patrick Stewart."
+    },
+    {
+      "id": "pt-BR.base.w048",
+      "text": "Meu namorado abusivo, que não é tão ruim quando você passa a conhecer ele melhor."
+    },
+    {
+      "id": "pt-BR.base.w049",
+      "text": "Receita para analgésicos."
+    },
+    {
+      "id": "pt-BR.base.w050",
+      "text": "Swooping."
+    },
+    {
+      "id": "pt-BR.base.w051",
+      "text": "Mansplaining."
+    },
+    {
+      "id": "pt-BR.base.w052",
+      "text": "Uma montagem homoerótica de voleibol."
+    },
+    {
+      "id": "pt-BR.base.w053",
+      "text": "Maria do Rosário."
+    },
+    {
+      "id": "pt-BR.base.w054",
+      "text": "Colocar as coisas onde elas vão."
+    },
+    {
+      "id": "pt-BR.base.w055",
+      "text": "Masculinidade frágil."
+    },
+    {
+      "id": "pt-BR.base.w056",
+      "text": "Coma tudo que puder de camarão por R$8.99."
+    },
+    {
+      "id": "pt-BR.base.w057",
+      "text": "Um cara velho que está quase morto."
+    },
+    {
+      "id": "pt-BR.base.w058",
+      "text": "Kanye West."
+    },
+    {
+      "id": "pt-BR.base.w059",
+      "text": "Queijo quente."
+    },
+    {
+      "id": "pt-BR.base.w060",
+      "text": "Ataque de velociraptor."
+    },
+    {
+      "id": "pt-BR.base.w061",
+      "text": "Sete mortos e três em condição crítica."
+    },
+    {
+      "id": "pt-BR.base.w062",
+      "text": "Smegma."
+    },
+    {
+      "id": "pt-BR.base.w063",
+      "text": "Alcolismo."
+    },
+    {
+      "id": "pt-BR.base.w064",
+      "text": "Um cara de meia idade de patins."
+    },
+    {
+      "id": "pt-BR.base.w065",
+      "text": "Olhando no espelho, passando batom, e cochichando “Hoje, você vai transar com o Tom Cruise.”"
+    },
+    {
+      "id": "pt-BR.base.w066",
+      "text": "Pegando meu homem pelos punhos de amor e comendo a bunda grande dele."
+    },
+    {
+      "id": "pt-BR.base.w067",
+      "text": "Um pirulito gigante."
+    },
+    {
+      "id": "pt-BR.base.w068",
+      "text": "Auto desgosto."
+    },
+    {
+      "id": "pt-BR.base.w069",
+      "text": "Sentar no meu rosto e me falar que sou um lixo."
+    },
+    {
+      "id": "pt-BR.base.w070",
+      "text": "Preliminares mais ou menos."
+    },
+    {
+      "id": "pt-BR.base.w071",
+      "text": "A biblia sagrada."
+    },
+    {
+      "id": "pt-BR.base.w072",
+      "text": "Porno alemão de masmorras."
+    },
+    {
+      "id": "pt-BR.base.w073",
+      "text": "Estar em fogo."
+    },
+    {
+      "id": "pt-BR.base.w074",
+      "text": "Gravidez adolescente."
+    },
+    {
+      "id": "pt-BR.base.w075",
+      "text": "Gandhi."
+    },
+    {
+      "id": "pt-BR.base.w076",
+      "text": "Seu irmão estranho."
+    },
+    {
+      "id": "pt-BR.base.w077",
+      "text": "Uma Lanterna”."
+    },
+    {
+      "id": "pt-BR.base.w078",
+      "text": "Uma pirâmide de cabeças decapitadas."
+    },
+    {
+      "id": "pt-BR.base.w079",
+      "text": "Um ereção que dura mais que quatro horas."
+    },
+    {
+      "id": "pt-BR.base.w080",
+      "text": "Sexo a três com minha esposa e Shaquille O'Neal."
+    },
+    {
+      "id": "pt-BR.base.w081",
+      "text": "O passado."
+    },
+    {
+      "id": "pt-BR.base.w082",
+      "text": "Minha genitália."
+    },
+    {
+      "id": "pt-BR.base.w083",
+      "text": "Um jato de diarréia sem fim."
+    },
+    {
+      "id": "pt-BR.base.w084",
+      "text": "Ciência."
+    },
+    {
+      "id": "pt-BR.base.w085",
+      "text": "Sexo oral não recíproco."
+    },
+    {
+      "id": "pt-BR.base.w086",
+      "text": "Aves que não voam."
+    },
+    {
+      "id": "pt-BR.base.w087",
+      "text": "Uma boa cheirada."
+    },
+    {
+      "id": "pt-BR.base.w088",
+      "text": "50,000 volts direto nos mamílos."
+    },
+    {
+      "id": "pt-BR.base.w089",
+      "text": "Café da manhã balanceado."
+    },
+    {
+      "id": "pt-BR.base.w090",
+      "text": "Passáros mortos por todos os lados."
+    },
+    {
+      "id": "pt-BR.base.w091",
+      "text": "A chegada da pizza."
+    },
+    {
+      "id": "pt-BR.base.w092",
+      "text": "Disordem permanente de expressão facial de orgasmo."
+    },
+    {
+      "id": "pt-BR.base.w093",
+      "text": "O sabor fresco e refrescante de Pepsi”."
+    },
+    {
+      "id": "pt-BR.base.w094",
+      "text": "Armas quimicas."
+    },
+    {
+      "id": "pt-BR.base.w095",
+      "text": "Danilo Gentili."
+    },
+    {
+      "id": "pt-BR.base.w096",
+      "text": "Imaginando se é possível levar um pouco da salsa embora."
+    },
+    {
+      "id": "pt-BR.base.w097",
+      "text": "Bananas."
+    },
+    {
+      "id": "pt-BR.base.w098",
+      "text": "Post-it passivo agressivo."
+    },
+    {
+      "id": "pt-BR.base.w099",
+      "text": "Emails da Dilma."
+    },
+    {
+      "id": "pt-BR.base.w100",
+      "text": "Trocar para Allianz®."
+    },
+    {
+      "id": "pt-BR.base.w101",
+      "text": "Fazer um xixizinho."
+    },
+    {
+      "id": "pt-BR.base.w102",
+      "text": "Sonhos molhados."
+    },
+    {
+      "id": "pt-BR.base.w103",
+      "text": "Os judeus."
+    },
+    {
+      "id": "pt-BR.base.w104",
+      "text": "Meu marido filho da puta."
+    },
+    {
+      "id": "pt-BR.base.w105",
+      "text": "Coxas poderosas."
+    },
+    {
+      "id": "pt-BR.base.w106",
+      "text": "Essas safadas."
+    },
+    {
+      "id": "pt-BR.base.w107",
+      "text": "A única pessoa gay em centenas de quilômetros."
+    },
+    {
+      "id": "pt-BR.base.w108",
+      "text": "Fazer sexo pela primeira vez."
+    },
+    {
+      "id": "pt-BR.base.w109",
+      "text": "Donald J. Trump."
+    },
+    {
+      "id": "pt-BR.base.w110",
+      "text": "Dar um beijo na testa da vóvó e desligar os aparelhos."
+    },
+    {
+      "id": "pt-BR.base.w111",
+      "text": "Tensão sexual."
+    },
+    {
+      "id": "pt-BR.base.w112",
+      "text": "Um rifle automático."
+    },
+    {
+      "id": "pt-BR.base.w113",
+      "text": "Meu sutiã bom."
+    },
+    {
+      "id": "pt-BR.base.w114",
+      "text": "Bater na cara de um político."
+    },
+    {
+      "id": "pt-BR.base.w115",
+      "text": "Whiskas®."
+    },
+    {
+      "id": "pt-BR.base.w116",
+      "text": "Ser rico."
+    },
+    {
+      "id": "pt-BR.base.w117",
+      "text": "Doce, doce vingança."
+    },
+    {
+      "id": "pt-BR.base.w118",
+      "text": "Direita Política."
+    },
+    {
+      "id": "pt-BR.base.w119",
+      "text": "Cheirando e beijando meu pé."
+    },
+    {
+      "id": "pt-BR.base.w120",
+      "text": "Uma mulher muito mais nova."
+    },
+    {
+      "id": "pt-BR.base.w121",
+      "text": "Miséria."
+    },
+    {
+      "id": "pt-BR.base.w122",
+      "text": "Pilotos Kamikaze."
+    },
+    {
+      "id": "pt-BR.base.w123",
+      "text": "Cometer suicídio."
+    },
+    {
+      "id": "pt-BR.base.w124",
+      "text": "A agenda gay."
+    },
+    {
+      "id": "pt-BR.base.w125",
+      "text": "Um mexicano."
+    },
+    {
+      "id": "pt-BR.base.w126",
+      "text": "Um falcão com boné na cabeça."
+    },
+    {
+      "id": "pt-BR.base.w127",
+      "text": "Música de mago."
+    },
+    {
+      "id": "pt-BR.base.w128",
+      "text": "O personagem Ki-Suco."
+    },
+    {
+      "id": "pt-BR.base.w129",
+      "text": "Explicar a diferença entre sexo e gênero."
+    },
+    {
+      "id": "pt-BR.base.w130",
+      "text": "Amostras grátis."
+    },
+    {
+      "id": "pt-BR.base.w131",
+      "text": "Machucando aqueles mais próximos de mim."
+    },
+    {
+      "id": "pt-BR.base.w132",
+      "text": "Fazer a coisa certa."
+    },
+    {
+      "id": "pt-BR.base.w133",
+      "text": "O acordo para contagem de escravos para taxação."
+    },
+    {
+      "id": "pt-BR.base.w134",
+      "text": "Lactação."
+    },
+    {
+      "id": "pt-BR.base.w135",
+      "text": "Paz mundial."
+    },
+    {
+      "id": "pt-BR.base.w136",
+      "text": "Calar a boca para eu poder assitir O jogo."
+    },
+    {
+      "id": "pt-BR.base.w137",
+      "text": "Comendo um ovo cozido que saiu do cu do meu marido."
+    },
+    {
+      "id": "pt-BR.base.w138",
+      "text": "RoboCop."
+    },
+    {
+      "id": "pt-BR.base.w139",
+      "text": "Um peitinho para fora."
+    },
+    {
+      "id": "pt-BR.base.w140",
+      "text": "Justin Bieber."
+    },
+    {
+      "id": "pt-BR.base.w141",
+      "text": "Oompa-Loompas."
+    },
+    {
+      "id": "pt-BR.base.w142",
+      "text": "Cantar lodelei inapropriado."
+    },
+    {
+      "id": "pt-BR.base.w143",
+      "text": "Puberdade."
+    },
+    {
+      "id": "pt-BR.base.w144",
+      "text": "Fantasmas."
+    },
+    {
+      "id": "pt-BR.base.w145",
+      "text": "Rivotril diário."
+    },
+    {
+      "id": "pt-BR.base.w146",
+      "text": "Comendo minha irmã."
+    },
+    {
+      "id": "pt-BR.base.w147",
+      "text": "Amarrar três pênis em um nó."
+    },
+    {
+      "id": "pt-BR.base.w148",
+      "text": "Mãos de jazz vigorosas."
+    },
+    {
+      "id": "pt-BR.base.w149",
+      "text": "Tomando uma dedada."
+    },
+    {
+      "id": "pt-BR.base.w150",
+      "text": "Meu motorista de Uber."
+    },
+    {
+      "id": "pt-BR.base.w151",
+      "text": "Geladinho."
+    },
+    {
+      "id": "pt-BR.base.w152",
+      "text": "Violência policial."
+    },
+    {
+      "id": "pt-BR.base.w153",
+      "text": "Encher minha maleta com coisas de trabalho."
+    },
+    {
+      "id": "pt-BR.base.w154",
+      "text": "Pré-adolescentes."
+    },
+    {
+      "id": "pt-BR.base.w155",
+      "text": "Minha filha gorda."
+    },
+    {
+      "id": "pt-BR.base.w156",
+      "text": "Rap."
+    },
+    {
+      "id": "pt-BR.base.w157",
+      "text": "Desaparecer no nada."
+    },
+    {
+      "id": "pt-BR.base.w158",
+      "text": "Darth Vader."
+    },
+    {
+      "id": "pt-BR.base.w159",
+      "text": "Uma punheta triste."
+    },
+    {
+      "id": "pt-BR.base.w160",
+      "text": "Exatamente o que você esperava."
+    },
+    {
+      "id": "pt-BR.base.w161",
+      "text": "Esperando um arroto e vomitando no chão."
+    },
+    {
+      "id": "pt-BR.base.w162",
+      "text": "Adderall®."
+    },
+    {
+      "id": "pt-BR.base.w163",
+      "text": "Sua mãe."
+    },
+    {
+      "id": "pt-BR.base.w164",
+      "text": "Lado do peitinho."
+    },
+    {
+      "id": "pt-BR.base.w165",
+      "text": "Um polvo batendo sete punhetas e fumando um cigarro."
+    },
+    {
+      "id": "pt-BR.base.w166",
+      "text": "Meu pescoço, minhas costas, minha boceta e minha bunda."
+    },
+    {
+      "id": "pt-BR.base.w167",
+      "text": "J.D. Power e seus associados."
+    },
+    {
+      "id": "pt-BR.base.w168",
+      "text": "Herpes de boca."
+    },
+    {
+      "id": "pt-BR.base.w169",
+      "text": "Esperma de baleia."
+    },
+    {
+      "id": "pt-BR.base.w170",
+      "text": "Mulher de cor."
+    },
+    {
+      "id": "pt-BR.base.w171",
+      "text": "Homem discutindo os sentimentos de uma maneira emocionalmente saudável."
+    },
+    {
+      "id": "pt-BR.base.w172",
+      "text": "Incesto."
+    },
+    {
+      "id": "pt-BR.base.w173",
+      "text": "Pac-Man bebendo esperma de maneira descontrolada."
+    },
+    {
+      "id": "pt-BR.base.w174",
+      "text": "Casualmente sugerindo sexo a três."
+    },
+    {
+      "id": "pt-BR.base.w175",
+      "text": "Ficando sem sêmen."
+    },
+    {
+      "id": "pt-BR.base.w176",
+      "text": "Deus."
+    },
+    {
+      "id": "pt-BR.base.w177",
+      "text": "Atropelar uma criança com um Lifan."
+    },
+    {
+      "id": "pt-BR.base.w178",
+      "text": "Urinando na minha boca sedenta."
+    },
+    {
+      "id": "pt-BR.base.w179",
+      "text": "Emoções."
+    },
+    {
+      "id": "pt-BR.base.w180",
+      "text": "Lamber as coisas para falar que são suas."
+    },
+    {
+      "id": "pt-BR.base.w181",
+      "text": "Trabalhos."
+    },
+    {
+      "id": "pt-BR.base.w182",
+      "text": "Placenta."
+    },
+    {
+      "id": "pt-BR.base.w183",
+      "text": "Combustão humana espontânea."
+    },
+    {
+      "id": "pt-BR.base.w184",
+      "text": "Episódio final do Big Brother Brasil."
+    },
+    {
+      "id": "pt-BR.base.w185",
+      "text": "Jogando uvas em um homem até que ele perca o contato com a realidade."
+    },
+    {
+      "id": "pt-BR.base.w186",
+      "text": "Estabelecer dominância."
+    },
+    {
+      "id": "pt-BR.base.w187",
+      "text": "Pintura a dedo."
+    },
+    {
+      "id": "pt-BR.base.w188",
+      "text": "Cheiro de pessoa velha."
+    },
+    {
+      "id": "pt-BR.base.w189",
+      "text": "Ser esmagado por uma máquina de vendas."
+    },
+    {
+      "id": "pt-BR.base.w190",
+      "text": "Meus demônios internos."
+    },
+    {
+      "id": "pt-BR.base.w191",
+      "text": "Uma Super Soaker” cheia de urina de gato."
+    },
+    {
+      "id": "pt-BR.base.w192",
+      "text": "Aaron Burr."
+    },
+    {
+      "id": "pt-BR.base.w193",
+      "text": "Abraçando."
+    },
+    {
+      "id": "pt-BR.base.w194",
+      "text": "Quanta maconha der para comprar com R$20."
+    },
+    {
+      "id": "pt-BR.base.w195",
+      "text": "Amputações do campo de batalha."
+    },
+    {
+      "id": "pt-BR.base.w196",
+      "text": "Spaghetti? De novo?"
+    },
+    {
+      "id": "pt-BR.base.w197",
+      "text": "Juscelino Kubitschek."
+    },
+    {
+      "id": "pt-BR.base.w198",
+      "text": "Uma festa de aniversário ruim."
+    },
+    {
+      "id": "pt-BR.base.w199",
+      "text": "Nachos para a mesa."
+    },
+    {
+      "id": "pt-BR.base.w200",
+      "text": "Virar uma blueberry."
+    },
+    {
+      "id": "pt-BR.base.w201",
+      "text": "Um mini cavalo."
+    },
+    {
+      "id": "pt-BR.base.w202",
+      "text": "Carangueijo."
+    },
+    {
+      "id": "pt-BR.base.w203",
+      "text": "Vendendo crack para crianças."
+    },
+    {
+      "id": "pt-BR.base.w204",
+      "text": "Um plot twist do M. Night Shyamalan."
+    },
+    {
+      "id": "pt-BR.base.w205",
+      "text": "Pessoas marrons."
+    },
+    {
+      "id": "pt-BR.base.w206",
+      "text": "Destruição mutuamente garantida."
+    },
+    {
+      "id": "pt-BR.base.w207",
+      "text": "Pedófilos."
+    },
+    {
+      "id": "pt-BR.base.w208",
+      "text": "Fermento."
+    },
+    {
+      "id": "pt-BR.base.w209",
+      "text": "Quão ruim minha filha fodeu o recital de dança."
+    },
+    {
+      "id": "pt-BR.base.w210",
+      "text": "Retângulos."
+    },
+    {
+      "id": "pt-BR.base.w211",
+      "text": "Catapultas."
+    },
+    {
+      "id": "pt-BR.base.w212",
+      "text": "Pessoas pobres."
+    },
+    {
+      "id": "pt-BR.base.w213",
+      "text": "Apenas namorar mulheres asiáticas."
+    },
+    {
+      "id": "pt-BR.base.w214",
+      "text": "The Hustle."
+    },
+    {
+      "id": "pt-BR.base.w215",
+      "text": "A Força."
+    },
+    {
+      "id": "pt-BR.base.w216",
+      "text": "Como é incrível comer cogumelos."
+    },
+    {
+      "id": "pt-BR.base.w217",
+      "text": "Julgando todo mundo."
+    },
+    {
+      "id": "pt-BR.base.w218",
+      "text": "Kourtney, Kim, Khloe, Kendall, e Kylie."
+    },
+    {
+      "id": "pt-BR.base.w219",
+      "text": "Casar, ter uns filhos, comprar umas coisas, aposentar na Flórida, e morrer."
+    },
+    {
+      "id": "pt-BR.base.w220",
+      "text": "Um pouco de paz e silêncio, droga."
+    },
+    {
+      "id": "pt-BR.base.w221",
+      "text": "AIDS."
+    },
+    {
+      "id": "pt-BR.base.w222",
+      "text": "Foto de peitos."
+    },
+    {
+      "id": "pt-BR.base.w223",
+      "text": "Personagens femininos fortes."
+    },
+    {
+      "id": "pt-BR.base.w224",
+      "text": "Um pouco de base, rímel e um toque de blush."
+    },
+    {
+      "id": "pt-BR.base.w225",
+      "text": "Tratamento em Hospício."
+    },
+    {
+      "id": "pt-BR.base.w226",
+      "text": "Ficar muito louco."
+    },
+    {
+      "id": "pt-BR.base.w227",
+      "text": "Epidêmia de opioides."
+    },
+    {
+      "id": "pt-BR.base.w228",
+      "text": "Inveja peniana."
+    },
+    {
+      "id": "pt-BR.base.w229",
+      "text": "Terapia de conversão gay."
+    },
+    {
+      "id": "pt-BR.base.w230",
+      "text": "Hamburguer e boceta."
+    },
+    {
+      "id": "pt-BR.base.w231",
+      "text": "Chanceler alemã Angela Merkel."
+    },
+    {
+      "id": "pt-BR.base.w232",
+      "text": "A KKK."
+    },
+    {
+      "id": "pt-BR.base.w233",
+      "text": "Um polvo pangênero que vaga no cosmos em busca do amor."
+    },
+    {
+      "id": "pt-BR.base.w234",
+      "text": "Metanfetamina."
+    },
+    {
+      "id": "pt-BR.base.w235",
+      "text": "Servidão."
+    },
+    {
+      "id": "pt-BR.base.w236",
+      "text": "Segurar uma criança e peidar nela."
+    },
+    {
+      "id": "pt-BR.base.w237",
+      "text": "A Bop It”."
+    },
+    {
+      "id": "pt-BR.base.w238",
+      "text": "À coisa toda de manteiga."
+    },
+    {
+      "id": "pt-BR.base.w239",
+      "text": "Ainda ser virgem."
+    },
+    {
+      "id": "pt-BR.base.w240",
+      "text": "Resolver problemas com violência."
+    },
+    {
+      "id": "pt-BR.base.w241",
+      "text": "Tomar uma gozada."
+    },
+    {
+      "id": "pt-BR.base.w242",
+      "text": "Bukkake pixelado."
+    },
+    {
+      "id": "pt-BR.base.w243",
+      "text": "Uma vida de tristeza."
+    },
+    {
+      "id": "pt-BR.base.w244",
+      "text": "Ficar um dia inteiro sem masturbação."
+    },
+    {
+      "id": "pt-BR.base.w245",
+      "text": "Foto de rola."
+    },
+    {
+      "id": "pt-BR.base.w246",
+      "text": "Racismo."
+    },
+    {
+      "id": "pt-BR.base.w247",
+      "text": "Ódio menstrual."
+    },
+    {
+      "id": "pt-BR.base.w248",
+      "text": "Raios de sol e Arco-íris."
+    },
+    {
+      "id": "pt-BR.base.w249",
+      "text": "Terrorismo Islâmico radical."
+    },
+    {
+      "id": "pt-BR.base.w250",
+      "text": "Bíceps gigantes."
+    },
+    {
+      "id": "pt-BR.base.w251",
+      "text": "Minha ereçãozinha."
+    },
+    {
+      "id": "pt-BR.base.w252",
+      "text": "Secar."
+    },
+    {
+      "id": "pt-BR.base.w253",
+      "text": "Um jato de porra que pega a luz enquanto se arqueia no ar da manhã."
+    },
+    {
+      "id": "pt-BR.base.w254",
+      "text": "Executar um refém a cada hora."
+    },
+    {
+      "id": "pt-BR.base.w255",
+      "text": "As músicas Africanas."
+    },
+    {
+      "id": "pt-BR.base.w256",
+      "text": "Quebrando em som e dança."
+    },
+    {
+      "id": "pt-BR.base.w257",
+      "text": "Lepra."
+    },
+    {
+      "id": "pt-BR.base.w258",
+      "text": "Gloryhole."
+    },
+    {
+      "id": "pt-BR.base.w259",
+      "text": "Lâminas de mamilos."
+    },
+    {
+      "id": "pt-BR.base.w260",
+      "text": "O coração de uma criança."
+    },
+    {
+      "id": "pt-BR.base.w261",
+      "text": "Filhotinhos!"
+    },
+    {
+      "id": "pt-BR.base.w262",
+      "text": "Camaradas em Cristo."
+    },
+    {
+      "id": "pt-BR.base.w263",
+      "text": "Pênis de menininhos."
+    },
+    {
+      "id": "pt-BR.base.w264",
+      "text": "Acordando meio sem roupa no estacionamento do Denny."
+    },
+    {
+      "id": "pt-BR.base.w265",
+      "text": "Uma velha senhora que conhece bem um pênis."
+    },
+    {
+      "id": "pt-BR.base.w266",
+      "text": "Tirar as drogas das ruas e colocá-las no meu corpo."
+    },
+    {
+      "id": "pt-BR.base.w267",
+      "text": "O delicioso cu de Daniel Radcliffe."
+    },
+    {
+      "id": "pt-BR.base.w268",
+      "text": "Ouvir ativamente."
+    },
+    {
+      "id": "pt-BR.base.w269",
+      "text": "Limpeza étnica."
+    },
+    {
+      "id": "pt-BR.base.w270",
+      "text": "Coceira vaginal."
+    },
+    {
+      "id": "pt-BR.base.w271",
+      "text": "Chupar meu namorado com tanta força que ele cague."
+    },
+    {
+      "id": "pt-BR.base.w272",
+      "text": "Uma tonelada de almondegas."
+    },
+    {
+      "id": "pt-BR.base.w273",
+      "text": "Uma salada para homens que é feita de metal."
+    },
+    {
+      "id": "pt-BR.base.w274",
+      "text": "Esperando até o casamento."
+    },
+    {
+      "id": "pt-BR.base.w275",
+      "text": "Estupidez incomensurável."
+    },
+    {
+      "id": "pt-BR.base.w276",
+      "text": "Objetos brilhantes."
+    },
+    {
+      "id": "pt-BR.base.w277",
+      "text": "O próprio Diabo."
+    },
+    {
+      "id": "pt-BR.base.w278",
+      "text": "Autocanibalismo."
+    },
+    {
+      "id": "pt-BR.base.w279",
+      "text": "Disfunção erétil."
+    },
+    {
+      "id": "pt-BR.base.w280",
+      "text": "Minha coleção de brinquedos sexuais japoneses."
+    },
+    {
+      "id": "pt-BR.base.w281",
+      "text": "O Papa."
+    },
+    {
+      "id": "pt-BR.base.w282",
+      "text": "Pessoas brancas."
+    },
+    {
+      "id": "pt-BR.base.w283",
+      "text": "Porno de tentáculos."
+    },
+    {
+      "id": "pt-BR.base.w284",
+      "text": "Meu buraco de transar rosa brilhante."
+    },
+    {
+      "id": "pt-BR.base.w285",
+      "text": "Até onde consigo colocar meu pênis na minha bunda."
+    },
+    {
+      "id": "pt-BR.base.w286",
+      "text": "Tendo ânus no lugar dos olhos."
+    },
+    {
+      "id": "pt-BR.base.w287",
+      "text": "O solo de “My Heart Will Go On”."
+    },
+    {
+      "id": "pt-BR.base.w288",
+      "text": "Seppuku."
+    },
+    {
+      "id": "pt-BR.base.w289",
+      "text": "Danny DeVito."
+    },
+    {
+      "id": "pt-BR.base.w290",
+      "text": "A mágia de teatro ao vivo."
+    },
+    {
+      "id": "pt-BR.base.w291",
+      "text": "Jogar uma virgem em um vulcão."
+    },
+    {
+      "id": "pt-BR.base.w292",
+      "text": "Dwayne “The Rock” Johnson."
+    },
+    {
+      "id": "pt-BR.base.w293",
+      "text": "Aceitar o jeito que as coisas são."
+    },
+    {
+      "id": "pt-BR.base.w294",
+      "text": "NBA superstar LeBron James."
+    },
+    {
+      "id": "pt-BR.base.w295",
+      "text": "Ouvir os problemas dela sem tentar resolver."
+    },
+    {
+      "id": "pt-BR.base.w296",
+      "text": "Terapia."
+    },
+    {
+      "id": "pt-BR.base.w297",
+      "text": "Ser um gordo idiota."
+    },
+    {
+      "id": "pt-BR.base.w298",
+      "text": "Cagando para fora e para dentro. Para sempre."
+    },
+    {
+      "id": "pt-BR.base.w299",
+      "text": "Rasgando aquela bunda como embrulho de presente na manhã de Natal."
+    },
+    {
+      "id": "pt-BR.base.w300",
+      "text": "Mais pinto de elefante do que eu esperava."
+    },
+    {
+      "id": "pt-BR.base.w301",
+      "text": "Uma surpresa salgada."
+    },
+    {
+      "id": "pt-BR.base.w302",
+      "text": "O Sul."
+    },
+    {
+      "id": "pt-BR.base.w303",
+      "text": "A violação do nosso direito humano mais básico."
+    },
+    {
+      "id": "pt-BR.base.w304",
+      "text": "Sapateado como se não houvesse amanhã."
+    },
+    {
+      "id": "pt-BR.base.w305",
+      "text": "Sexo consensual."
+    },
+    {
+      "id": "pt-BR.base.w306",
+      "text": "Contar uma história merda que não vai para lugar nenhum."
+    },
+    {
+      "id": "pt-BR.base.w307",
+      "text": "Um bom e forte gorila."
+    },
+    {
+      "id": "pt-BR.base.w308",
+      "text": "Vendo meu pai chorar."
+    },
+    {
+      "id": "pt-BR.base.w309",
+      "text": "Necrofilia."
+    },
+    {
+      "id": "pt-BR.base.w310",
+      "text": "Ser uma mulher."
+    },
+    {
+      "id": "pt-BR.base.w311",
+      "text": "Sofrer um acidente de carro muito grave."
+    },
+    {
+      "id": "pt-BR.base.w312",
+      "text": "Beakman, o cara da ciência."
+    },
+    {
+      "id": "pt-BR.base.w313",
+      "text": "Pessoas negras."
+    },
+    {
+      "id": "pt-BR.base.w314",
+      "text": "Os escoteiros da América."
+    },
+    {
+      "id": "pt-BR.base.w315",
+      "text": "Lunchables”."
+    },
+    {
+      "id": "pt-BR.base.w316",
+      "text": "Vadias."
+    },
+    {
+      "id": "pt-BR.base.w317",
+      "text": "Algum garoto punk que roubou meu sanduíche de peru."
+    },
+    {
+      "id": "pt-BR.base.w318",
+      "text": "Órfãos comoventes."
+    },
+    {
+      "id": "pt-BR.base.w319",
+      "text": "Spirit Linhas Aéreas."
+    },
+    {
+      "id": "pt-BR.base.w320",
+      "text": "Meninos de bunda redonda."
+    },
+    {
+      "id": "pt-BR.base.w321",
+      "text": "Uma tigela de maionese e dentes humanos."
+    },
+    {
+      "id": "pt-BR.base.w322",
+      "text": "Bunda queimando por conta da comida picante."
+    },
+    {
+      "id": "pt-BR.base.w323",
+      "text": "Dizendo “Eu amo você”."
+    },
+    {
+      "id": "pt-BR.base.w324",
+      "text": "Enfiar um pote de vidro na minha bunda."
+    },
+    {
+      "id": "pt-BR.base.w325",
+      "text": "O verdadeiro significado do Natal."
+    },
+    {
+      "id": "pt-BR.base.w326",
+      "text": "Alguns dos melhores rappers do jogo."
+    },
+    {
+      "id": "pt-BR.base.w327",
+      "text": "Ter e manter uma franquia de Chili."
+    },
+    {
+      "id": "pt-BR.base.w328",
+      "text": "Estrogênio."
+    },
+    {
+      "id": "pt-BR.base.w329",
+      "text": "Meninas."
+    },
+    {
+      "id": "pt-BR.base.w330",
+      "text": "Os Russos."
+    },
+    {
+      "id": "pt-BR.base.w331",
+      "text": "Um ânus branqueado."
+    },
+    {
+      "id": "pt-BR.base.w332",
+      "text": "Fodendo o meteorologista ao vivo na televisão."
+    },
+    {
+      "id": "pt-BR.base.w333",
+      "text": "TEPT."
+    },
+    {
+      "id": "pt-BR.base.w334",
+      "text": "Forças sombrias e misteriosas além do nosso controle."
+    },
+    {
+      "id": "pt-BR.base.w335",
+      "text": "Cobertores contra varíola."
+    },
+    {
+      "id": "pt-BR.base.w336",
+      "text": "Masturbação."
+    },
+    {
+      "id": "pt-BR.base.w337",
+      "text": "Mendigos."
+    },
+    {
+      "id": "pt-BR.base.w338",
+      "text": "Peido vaginal."
+    },
+    {
+      "id": "pt-BR.base.w339",
+      "text": "Os caras de Queer Eye."
+    },
+    {
+      "id": "pt-BR.base.w340",
+      "text": "Cardi B."
+    },
+    {
+      "id": "pt-BR.base.w341",
+      "text": "Viagra."
+    },
+    {
+      "id": "pt-BR.base.w342",
+      "text": "Sopa que está quente demais."
+    },
+    {
+      "id": "pt-BR.base.w343",
+      "text": "Muhammad (Que a paz esteja com ele)."
+    },
+    {
+      "id": "pt-BR.base.w344",
+      "text": "Explicando como funcionam as vaginas."
+    },
+    {
+      "id": "pt-BR.base.w345",
+      "text": "Meryl Streep, vencedora do Oscar."
+    },
+    {
+      "id": "pt-BR.base.w346",
+      "text": "Beber sozinho."
+    },
+    {
+      "id": "pt-BR.base.w347",
+      "text": "Dedo de rola."
+    },
+    {
+      "id": "pt-BR.base.w348",
+      "text": "Múltiplas feridas de faca."
+    },
+    {
+      "id": "pt-BR.base.w349",
+      "text": "Fraldas sujas."
+    },
+    {
+      "id": "pt-BR.base.w350",
+      "text": "Toque de suporte na parte de baixo das costas."
+    },
+    {
+      "id": "pt-BR.base.w351",
+      "text": "Bolinhas anais."
+    },
+    {
+      "id": "pt-BR.base.w352",
+      "text": "Massacrando civis inocentes."
+    },
+    {
+      "id": "pt-BR.base.w353",
+      "text": "Puxar para fora."
+    },
+    {
+      "id": "pt-BR.base.w354",
+      "text": "Ser capaz de falar com elefantes."
+    },
+    {
+      "id": "pt-BR.base.w355",
+      "text": "Carne de cavalo."
+    },
+    {
+      "id": "pt-BR.base.w356",
+      "text": "Um chapéu bem legal."
+    },
+    {
+      "id": "pt-BR.base.w357",
+      "text": "Stalin."
+    },
+    {
+      "id": "pt-BR.base.w358",
+      "text": "Um pelo pubiano perdido."
+    },
+    {
+      "id": "pt-BR.base.w359",
+      "text": "Adorando aquela buceta."
+    },
+    {
+      "id": "pt-BR.base.w360",
+      "text": "Confiança totalmente injustificada."
+    },
+    {
+      "id": "pt-BR.base.w361",
+      "text": "Fazendo na bunda."
+    },
+    {
+      "id": "pt-BR.base.w362",
+      "text": "Minha ex-mulher."
+    },
+    {
+      "id": "pt-BR.base.w363",
+      "text": "Ensinando um robô a amar."
+    },
+    {
+      "id": "pt-BR.base.w364",
+      "text": "Tocar bem no pênis de um pug."
+    },
+    {
+      "id": "pt-BR.base.w365",
+      "text": "Um moinho cheio de corpos."
+    },
+    {
+      "id": "pt-BR.base.w366",
+      "text": "Count Chocula."
+    },
+    {
+      "id": "pt-BR.base.w367",
+      "text": "Vladimir Putin."
+    },
+    {
+      "id": "pt-BR.base.w368",
+      "text": "O Patriarcado."
+    },
+    {
+      "id": "pt-BR.base.w369",
+      "text": "O teto de vidro."
+    },
+    {
+      "id": "pt-BR.base.w370",
+      "text": "Vomitando comida marinha e com sangramento anal."
+    },
+    {
+      "id": "pt-BR.base.w371",
+      "text": "O sonho americano."
+    },
+    {
+      "id": "pt-BR.base.w372",
+      "text": "Não usar calças."
+    },
+    {
+      "id": "pt-BR.base.w373",
+      "text": "Minhas bolas na sua cara."
+    },
+    {
+      "id": "pt-BR.base.w374",
+      "text": "Cagar em um notebook e f echar ele."
+    },
+    {
+      "id": "pt-BR.base.w375",
+      "text": "Bebês mortos."
+    },
+    {
+      "id": "pt-BR.base.w376",
+      "text": "Prepúcio."
+    },
+    {
+      "id": "pt-BR.base.w377",
+      "text": "Um solo de saxofone."
+    },
+    {
+      "id": "pt-BR.base.w378",
+      "text": "Italianos."
+    },
+    {
+      "id": "pt-BR.base.w379",
+      "text": "Um feto."
+    },
+    {
+      "id": "pt-BR.base.w380",
+      "text": "Atirando com um rifle para cima enquanto comia um porco grunhindo."
+    },
+    {
+      "id": "pt-BR.base.w381",
+      "text": "Mike Pence."
+    },
+    {
+      "id": "pt-BR.base.w382",
+      "text": "10.000 refugiados sírios."
+    },
+    {
+      "id": "pt-BR.base.w383",
+      "text": "Esterilização forçada."
+    },
+    {
+      "id": "pt-BR.base.w384",
+      "text": "Meu status de relacionamento."
+    },
+    {
+      "id": "pt-BR.base.w385",
+      "text": "Uma gravidez indesejada."
+    },
+    {
+      "id": "pt-BR.base.w386",
+      "text": "marvel."
+    },
+    {
+      "id": "pt-BR.base.w387",
+      "text": "Meu chefe."
+    },
+    {
+      "id": "pt-BR.base.w388",
+      "text": "Abelhas?"
+    },
+    {
+      "id": "pt-BR.base.w389",
+      "text": "Harry Potter Pornô."
+    },
+    {
+      "id": "pt-BR.base.w390",
+      "text": "Parir o Anticristo."
+    },
+    {
+      "id": "pt-BR.base.w391",
+      "text": "Três pintos ao mesmo tempo."
+    },
+    {
+      "id": "pt-BR.base.w392",
+      "text": "Nazistas."
+    },
+    {
+      "id": "pt-BR.base.w393",
+      "text": "Meio kilo da doce heroina mexicana de preta."
+    },
+    {
+      "id": "pt-BR.base.w394",
+      "text": "O que essa boca faz."
+    },
+    {
+      "id": "pt-BR.base.w395",
+      "text": "Pais mortos."
+    },
+    {
+      "id": "pt-BR.base.w396",
+      "text": "Permanência do objeto."
+    },
+    {
+      "id": "pt-BR.base.w397",
+      "text": "Polegares opositores."
+    },
+    {
+      "id": "pt-BR.base.w398",
+      "text": "Perguntas de vestibular preconceituosas."
+    },
+    {
+      "id": "pt-BR.base.w399",
+      "text": "A grande depressão."
+    },
+    {
+      "id": "pt-BR.base.w400",
+      "text": "Motosserra no lugar das mãos."
+    },
+    {
+      "id": "pt-BR.base.w401",
+      "text": "Nicolas Cage."
+    },
+    {
+      "id": "pt-BR.base.w402",
+      "text": "Concursos de beleza infantil."
+    },
+    {
+      "id": "pt-BR.base.w403",
+      "text": "Explosões."
+    },
+    {
+      "id": "pt-BR.base.w404",
+      "text": "Não vacinando meu filho porque sou retardado."
+    },
+    {
+      "id": "pt-BR.base.w405",
+      "text": "Nosso dildo."
+    },
+    {
+      "id": "pt-BR.base.w406",
+      "text": "Jogando tinta spray."
+    },
+    {
+      "id": "pt-BR.base.w407",
+      "text": "Um homem à beira do orgasmo."
+    },
+    {
+      "id": "pt-BR.base.w408",
+      "text": "Repressão."
+    },
+    {
+      "id": "pt-BR.base.w409",
+      "text": "Invadir a Polândia."
+    },
+    {
+      "id": "pt-BR.base.w410",
+      "text": "Minha vagina."
+    },
+    {
+      "id": "pt-BR.base.w411",
+      "text": "Calça sem bunda."
+    },
+    {
+      "id": "pt-BR.base.w412",
+      "text": "Assassino."
+    },
+    {
+      "id": "pt-BR.base.w413",
+      "text": "Dar 110%."
+    },
+    {
+      "id": "pt-BR.base.w414",
+      "text": "Sua Majestade, Rainha Elizabeth Il."
+    },
+    {
+      "id": "pt-BR.base.w415",
+      "text": "Jesus negro."
+    },
+    {
+      "id": "pt-BR.base.w416",
+      "text": "Memes."
+    },
+    {
+      "id": "pt-BR.base.w417",
+      "text": "Sexo com animais."
+    },
+    {
+      "id": "pt-BR.base.w418",
+      "text": "Ser marginalizado."
+    },
+    {
+      "id": "pt-BR.base.w419",
+      "text": "Goblins."
+    },
+    {
+      "id": "pt-BR.base.w420",
+      "text": "Esperança."
+    },
+    {
+      "id": "pt-BR.base.w421",
+      "text": "Liberais."
+    },
+    {
+      "id": "pt-BR.base.w422",
+      "text": "Um micropênis."
+    },
+    {
+      "id": "pt-BR.base.w423",
+      "text": "Minha alma."
+    },
+    {
+      "id": "pt-BR.base.w424",
+      "text": "Uma bola de cera de ouvido, semên e pedaços de unha de pé."
+    },
+    {
+      "id": "pt-BR.base.w425",
+      "text": "Uma orda viking."
+    },
+    {
+      "id": "pt-BR.base.w426",
+      "text": "Pessoas gostosas."
+    },
+    {
+      "id": "pt-BR.base.w427",
+      "text": "Fervendo com ressentimento silencioso."
+    },
+    {
+      "id": "pt-BR.base.w428",
+      "text": "Complexo de Edipo."
+    },
+    {
+      "id": "pt-BR.base.w429",
+      "text": "Ganso."
+    },
+    {
+      "id": "pt-BR.base.w430",
+      "text": "Calças extremamente apertadas."
+    },
+    {
+      "id": "pt-BR.base.w431",
+      "text": "Fox News."
+    },
+    {
+      "id": "pt-BR.base.w432",
+      "text": "Um garotinho que não para de falar sobre dinossauros."
+    },
+    {
+      "id": "pt-BR.base.w433",
+      "text": "Fazendo careta."
+    },
+    {
+      "id": "pt-BR.base.w434",
+      "text": "Atropelamento intencional."
+    },
+    {
+      "id": "pt-BR.base.w435",
+      "text": "Revolução feminina."
+    },
+    {
+      "id": "pt-BR.base.w436",
+      "text": "Algum cara."
+    },
+    {
+      "id": "pt-BR.base.w437",
+      "text": "Juiz Judite."
+    },
+    {
+      "id": "pt-BR.base.w438",
+      "text": "Subindo no poste telefonico e virar um só com a Embratel."
+    },
+    {
+      "id": "pt-BR.base.w439",
+      "text": "No tiroteio em massa desse mês."
+    },
+    {
+      "id": "pt-BR.base.w440",
+      "text": "Barack Obama."
+    },
+    {
+      "id": "pt-BR.base.w441",
+      "text": "Imigrantes ilegais."
+    },
+    {
+      "id": "pt-BR.base.w442",
+      "text": "Idoso japonês."
+    },
+    {
+      "id": "pt-BR.base.w443",
+      "text": "Orgasmo feminino."
+    },
+    {
+      "id": "pt-BR.base.w444",
+      "text": "Heteronormatividade."
+    },
+    {
+      "id": "pt-BR.base.w445",
+      "text": "Migalhas por todo o maldito tapete."
+    },
+    {
+      "id": "pt-BR.base.w446",
+      "text": "Arnold Schwarzenegger."
+    },
+    {
+      "id": "pt-BR.base.w447",
+      "text": "À senha do wifi."
+    },
+    {
+      "id": "pt-BR.base.w448",
+      "text": "Abdômen espetacular."
+    },
+    {
+      "id": "pt-BR.base.w449",
+      "text": "Um pássaro que caga bosta humana."
+    },
+    {
+      "id": "pt-BR.base.w450",
+      "text": "Um leão de zoológico triste."
+    },
+    {
+      "id": "pt-BR.base.w451",
+      "text": "Uma sacola de feijões mágicos."
+    },
+    {
+      "id": "pt-BR.base.w452",
+      "text": "Escohas de vida ruins."
+    },
+    {
+      "id": "pt-BR.base.w453",
+      "text": "Minha vida sexual."
+    },
+    {
+      "id": "pt-BR.base.w454",
+      "text": "Auschwitz."
+    },
+    {
+      "id": "pt-BR.base.w455",
+      "text": "Uma tartaruga, do nada, mordendo a ponta do seu pênis."
+    },
+    {
+      "id": "pt-BR.base.w456",
+      "text": "Todos os caras que transei."
+    },
+    {
+      "id": "pt-BR.base.w457",
+      "text": "O clitóris."
+    },
+    {
+      "id": "pt-BR.base.w458",
+      "text": "O Big Bang."
+    },
+    {
+      "id": "pt-BR.base.w459",
+      "text": "Minas terrestres."
+    },
+    {
+      "id": "pt-BR.base.w460",
+      "text": "Todo o Coro do Tabernáculo Mórmon."
+    },
+    {
+      "id": "pt-BR.base.w461",
+      "text": "Um mini-porco vestindo roupa de chuva e botas."
+    },
+    {
+      "id": "pt-BR.base.w462",
+      "text": "Bafo de rola."
+    },
+    {
+      "id": "pt-BR.base.w463",
+      "text": "Bater uma em uma piscina de lágrimas de crianças."
+    },
+    {
+      "id": "pt-BR.base.w464",
+      "text": "Rola."
+    },
+    {
+      "id": "pt-BR.base.w465",
+      "text": "Tempo para mim."
+    },
+    {
+      "id": "pt-BR.base.w466",
+      "text": "Ferrovia subterrânea."
+    },
+    {
+      "id": "pt-BR.base.w467",
+      "text": "Caiaque com minhas putas."
+    },
+    {
+      "id": "pt-BR.base.w468",
+      "text": "Oceano de problemas."
+    },
+    {
+      "id": "pt-BR.base.w469",
+      "text": "Fantasia com lenhadores."
+    },
+    {
+      "id": "pt-BR.base.w470",
+      "text": "A voz do Morgan Freeman."
+    },
+    {
+      "id": "pt-BR.base.w471",
+      "text": "Mulheres em comerciais de iogurte."
+    },
+    {
+      "id": "pt-BR.base.w472",
+      "text": "Próstata."
+    },
+    {
+      "id": "pt-BR.base.w473",
+      "text": "Ser um maldito feiticeiro."
+    },
+    {
+      "id": "pt-BR.base.w474",
+      "text": "Minha bunda preta."
+    },
+    {
+      "id": "pt-BR.base.w475",
+      "text": "Conexão humana genuína."
+    },
+    {
+      "id": "pt-BR.base.w476",
+      "text": "Falando que estou prestes a gozar."
+    },
+    {
+      "id": "pt-BR.base.w477",
+      "text": "Bolas."
+    },
+    {
+      "id": "pt-BR.base.w478",
+      "text": "Vovó."
+    },
+    {
+      "id": "pt-BR.base.w479",
+      "text": "Atrito."
+    },
+    {
+      "id": "pt-BR.base.w480",
+      "text": "Pedaços de um mochileiro morto."
+    },
+    {
+      "id": "pt-BR.base.w481",
+      "text": "Peidar e ir embora."
+    },
+    {
+      "id": "pt-BR.base.w482",
+      "text": "Ser babaca com crianças."
+    },
+    {
+      "id": "pt-BR.base.w483",
+      "text": "Um trilhão de dólares."
+    },
+    {
+      "id": "pt-BR.base.w484",
+      "text": "Afogando as crianças na banheira."
+    },
+    {
+      "id": "pt-BR.base.w485",
+      "text": "Morrendo."
+    },
+    {
+      "id": "pt-BR.base.w486",
+      "text": "Beber água da privada e comer lixo."
+    },
+    {
+      "id": "pt-BR.base.w487",
+      "text": "Os gays."
+    },
+    {
+      "id": "pt-BR.base.w488",
+      "text": "Os gritos ... os gritos horríveis."
+    },
+    {
+      "id": "pt-BR.base.w489",
+      "text": "Homens."
+    },
+    {
+      "id": "pt-BR.base.w490",
+      "text": "O bombardeio de Nagasaki."
+    },
+    {
+      "id": "pt-BR.base.w491",
+      "text": "Peitos falsos."
+    },
+    {
+      "id": "pt-BR.base.w492",
+      "text": "Os Amish."
+    },
+    {
+      "id": "pt-BR.base.w493",
+      "text": "David Bowie voando em um tigre feito de relâmpago."
+    },
+    {
+      "id": "pt-BR.base.w494",
+      "text": "Minha cara feia e personalidade ruim."
+    },
+    {
+      "id": "pt-BR.base.w495",
+      "text": "Um tapa de vadia."
+    },
+    {
+      "id": "pt-BR.base.w496",
+      "text": "Um tumor cerebral."
+    },
+    {
+      "id": "pt-BR.base.w497",
+      "text": "O próprio medo."
+    },
+    {
+      "id": "pt-BR.base.w498",
+      "text": "Judeus, hippies, e homosexuais."
+    },
+    {
+      "id": "pt-BR.base.w499",
+      "text": "O leiteiro."
+    },
+    {
+      "id": "pt-BR.base.w500",
+      "text": "Cartas Contra a Humanidade."
+    }
+  ]
+}

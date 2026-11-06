@@ -30,12 +30,13 @@ Sempre rode `bun run typecheck`, `bun run lint` e `bun run test` antes de finali
 
 - **Componentes de UI:** vivem em `src/components/ui/` e são gerados pelo shadcn (style `base-vega`, sobre Base UI). Adicione com `bunx shadcn@latest add <nome> --overwrite --yes`. Evite editar esses arquivos à mão — mudanças podem ser sobrescritas.
 - **Diferenças Base UI:** use a prop `render` no lugar de `asChild`; `useRender`/`mergeProps` no lugar de `Slot`; atributos `data-horizontal`/`data-vertical` no lugar de `data-[orientation=*]`.
-- **Showcase:** `/components` renderiza um demo por componente. Novos demos vão em `src/components/showcase/demos/<categoria>.tsx` e são registrados na categoria correspondente em `registry.ts`.
+- **Jogo:** lógica pura em `src/game/engine.ts` (estado do anfitrião), rede P2P em `src/game/session.ts` (PeerJS, anfitrião autoritativo), estado da UI em `src/store/useGameStore.ts`, telas em `src/components/game/`.
+- **Cartas:** pacotes JSON em `data/cards/<lang>/<pacote>.json`, registrados em `src/game/cards.ts`. Lacunas são `____` (3+ underscores). IDs de carta são estáveis e únicos entre pacotes.
 - **Estilo:** Tailwind v4 com tokens semânticos + `cn()` de `@/lib/utils`. Animações/tokens em `src/app/globals.css`. Respeite sempre light/dark.
 - **API:** use `apiClient` (`src/lib/api-client.ts`) — ele injeta o Bearer do `useAuthStore` e trata refresh em `401`. Envelope de resposta `{ data, error, message }`.
 - **Data fetching:** TanStack Query via `getQueryClient()` (`src/lib/query-client.ts`); o `QueryProvider` já está no `layout.tsx`.
 - **Auth:** estado em `src/store/useAuthStore.ts` (Zustand persistido). Não leia o token direto em componentes.
-- **`cacheComponents: true`:** valores instáveis (`new Date()`, `Math.random()`) não podem rodar no pré-render de Client Components — envolva em `<Suspense>`. Leia `node_modules/next/dist/docs/` antes de mexer em APIs do Next.
+- **Export estático (GitHub Pages):** `output: "export"` com `basePath` vindo de `NEXT_PUBLIC_BASE_PATH`. Sem servidor: nada de Server Actions, rotas dinâmicas sem `generateStaticParams`, cookies ou headers. `cacheComponents`/PPR estão desligados porque não funcionam em export. Leia `node_modules/next/dist/docs/` antes de mexer em APIs do Next.
 - **Testes:** `tests/**/*.test.{ts,tsx}` (jsdom). `tests/setup.ts` já traz jest-dom, `cleanup` e polyfills de `matchMedia`/`PointerEvent`. Teste comportamento via papéis/`aria`.
 
 ## Não faça

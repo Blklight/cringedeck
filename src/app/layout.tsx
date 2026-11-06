@@ -19,8 +19,8 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "tpl-ui",
-  description: "Front-end template",
+  title: "Cartas Contra a Humanidade",
+  description: "Cards Against Humanity online, direto do navegador (P2P).",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -42,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           attribute="class"
           defaultTheme="system"
           enableSystem
+          themes={["light", "dark", "book"]}
           disableTransitionOnChange
         >
           <QueryProvider>
