@@ -1,4 +1,4 @@
-const CACHE = "cringedeck-v1";
+const CACHE = "cringecards-v1";
 const SCOPE = new URL(self.registration.scope).pathname;
 const PRECACHE = [
   SCOPE,

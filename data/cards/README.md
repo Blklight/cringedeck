@@ -7,6 +7,15 @@ Cada pacote é um JSON em `data/cards/<lang>/<id>.json`, validado por [`schema.j
 | `pt-BR.base` | pt-BR  |    100 |     500 | Print & Play Brasil (OCR + revisão)     |
 | `en.base`    | en     |    100 |     500 | Print & Play US 2022 (OCR + revisão)    |
 
+## Licença e marca
+
+O conteúdo das cartas vem de Cards Against Humanity, distribuído sob Creative Commons BY-NC-SA. Os PDFs Print & Play declaram a **2.0**; o site atual declara a **4.0** — por isso os pacotes listam as duas em `license`.
+
+- **BY (atribuição):** a origem fica registrada em `source` de cada pacote e no `NOTICE.md`.
+- **NC (não comercial):** o projeto não pode ser vendido nem monetizado.
+- **SA (compartilha igual):** derivados (inclusive traduções) saem sob a mesma licença.
+- A licença cobre o conteúdo, **não a marca**: o nome "Cards Against Humanity" não é usado como nome nem identidade visual do app.
+
 ## Regras
 
 - **IDs** são únicos entre todos os pacotes e nunca reaproveitados: `<lang>.<pacote>.<b|w><número>`.

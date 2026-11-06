@@ -1,3 +1,5 @@
+import type { ErrorCode, ErrorParams } from "./errors";
+
 export interface WhiteCard {
   id: string;
   text: string;
@@ -15,7 +17,7 @@ export interface CardPack {
   name: string;
   description?: string;
   source?: string;
-  license?: string;
+  license?: string | string[];
   translatedFrom?: string;
   black: BlackCard[];
   white: WhiteCard[];
@@ -52,6 +54,7 @@ export interface HostState {
   round: number;
   targetScore: number;
   players: PlayerRec[];
+  lang: string;
   packs: string[];
   whiteDeck: string[];
   whiteDiscard: string[];
@@ -86,6 +89,7 @@ export interface GameView {
   phase: Phase;
   round: number;
   targetScore: number;
+  lang: string;
   packs: string[];
   players: PlayerView[];
   czarId: string | null;
@@ -106,6 +110,6 @@ export type ClientMsg =
 
 export type HostMsg =
   | { t: "view"; view: GameView }
-  | { t: "error"; message: string }
+  | { t: "error"; code: ErrorCode; params?: ErrorParams }
   | { t: "kicked" }
   | { t: "closed" };

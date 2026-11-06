@@ -5,7 +5,7 @@
   "name": "Base (US)",
   "description": "Base deck from the US Print & Play edition (2022).",
   "source": "Cards Against Humanity — Print & Play (US, 2022)",
-  "license": "CC BY-NC-SA 2.0",
+  "license": ["CC BY-NC-SA 4.0", "CC BY-NC-SA 2.0"],
   "black": [
     {
       "id": "en.base.b001",

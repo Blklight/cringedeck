@@ -5,7 +5,7 @@
   "name": "Meu pacote",
   "description": "Copie este arquivo para data/cards/<lang>/<id>.json e registre-o em src/game/cards.ts.",
   "source": "original-do-projeto",
-  "license": "CC BY-NC-SA 2.0",
+  "license": ["CC BY-NC-SA 4.0", "CC BY-NC-SA 2.0"],
   "black": [
     {
       "id": "pt-BR.meu-pacote.b001",

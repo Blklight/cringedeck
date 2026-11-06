@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { APP_DESCRIPTION, APP_NAME } from "@/lib/brand";
 import { withBasePath } from "@/lib/env";
 
 export const dynamic = "force-static";
@@ -6,10 +7,9 @@ export const dynamic = "force-static";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: withBasePath("/"),
-    name: "Cartas Contra a Humanidade",
-    short_name: "Cringedeck",
-    description: "Cards Against Humanity online, direto do navegador (P2P).",
-    lang: "pt-BR",
+    name: APP_NAME,
+    short_name: APP_NAME,
+    description: APP_DESCRIPTION,
     start_url: withBasePath("/"),
     scope: withBasePath("/"),
     display: "standalone",

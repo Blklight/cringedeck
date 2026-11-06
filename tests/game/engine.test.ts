@@ -1,19 +1,27 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_PACKS, getBlack, PACKS, packKey } from "@/game/cards";
+import {
+  defaultPacksFor,
+  getBlack,
+  PACK_LANGS,
+  PACKS,
+  packKey,
+  packsFor,
+} from "@/game/cards";
 import {
   buildView,
   chooseWinner,
   createGame,
-  GameError,
   HAND_SIZE,
   joinPlayer,
   nextRound,
   removePlayer,
   setConnected,
+  setDeckLanguage,
   setPacks,
   startGame,
   submitCards,
 } from "@/game/engine";
+import { AppError } from "@/game/errors";
 import { countBlanks, fillBlanks } from "@/game/text";
 import type { HostState, PlayerRec } from "@/game/types";
 
@@ -52,7 +60,10 @@ describe("pacotes de cartas", () => {
   it("tem chaves de pacote únicas e o pacote padrão existe", () => {
     const keys = PACKS.map(packKey);
     expect(new Set(keys).size).toBe(keys.length);
-    for (const key of DEFAULT_PACKS) expect(keys).toContain(key);
+    for (const lang of PACK_LANGS) {
+      expect(defaultPacksFor(lang).length).toBe(1);
+      expect(packsFor(lang).length).toBeGreaterThan(0);
+    }
   });
 
   it.each(
@@ -120,7 +131,7 @@ describe("engine", () => {
   it("exige ao menos 3 jogadores", () => {
     const s = createGame("ABCDE", "p0", "Ana");
     joinPlayer(s, "p1", "Beto");
-    expect(() => startGame(s)).toThrow(GameError);
+    expect(() => startGame(s)).toThrow(AppError);
   });
 
   it("distribui 10 cartas a cada jogador, sem repetir", () => {
@@ -133,9 +144,33 @@ describe("engine", () => {
 
   it("não deixa desmarcar todos os pacotes", () => {
     const s = createGame("ABCDE", "p0", "Ana");
-    expect(() => setPacks(s, [])).toThrow(GameError);
-    expect(() => setPacks(s, ["xx.inexistente"])).toThrow(GameError);
-    expect(s.packs).toEqual(DEFAULT_PACKS);
+    expect(() => setPacks(s, [])).toThrow(AppError);
+    expect(() => setPacks(s, ["xx.inexistente"])).toThrow(AppError);
+    expect(s.packs).toEqual(defaultPacksFor("pt-BR"));
+  });
+
+  it("troca o idioma das cartas e só aceita pacotes desse idioma", () => {
+    const s = createGame("ABCDE", "p0", "Ana", "pt-BR");
+    expect(() => setPacks(s, ["en.base"])).toThrow(AppError);
+    setDeckLanguage(s, "en");
+    expect(s.lang).toBe("en");
+    expect(s.packs).toEqual(["en.base"]);
+    expect(() => setDeckLanguage(s, "xx")).toThrow(AppError);
+  });
+
+  it("usa o idioma pedido ao criar a sala e cai para pt-BR se não houver cartas", () => {
+    expect(createGame("A", "p0", "Ana", "en").packs).toEqual(["en.base"]);
+    expect(createGame("A", "p0", "Ana", "xx").lang).toBe("pt-BR");
+  });
+
+  it("dá as cartas só do idioma da sala", () => {
+    const rng = seeded();
+    const s = createGame("ABCDE", "p0", "Ana", "en");
+    joinPlayer(s, "p1", "B", rng);
+    joinPlayer(s, "p2", "C", rng);
+    startGame(s, rng);
+    const all = [...s.players.flatMap((p) => p.hand), s.blackId as string];
+    expect(all.every((id) => id.startsWith("en."))).toBe(true);
   });
 
   it("evita nomes duplicados", () => {
@@ -161,7 +196,7 @@ describe("engine", () => {
     ).toThrow();
     const [p] = nonCzar(s);
     const foreign = s.players.find((x) => x.id !== p.id)?.hand[0] as string;
-    expect(() => submitCards(s, p.id, [foreign])).toThrow(GameError);
+    expect(() => submitCards(s, p.id, [foreign])).toThrow(AppError);
   });
 
   it("pontua o vencedor, revela autores e roda o Czar", () => {
@@ -170,7 +205,7 @@ describe("engine", () => {
     playAll(s);
     const key = s.order[0];
     const winnerId = s.submissions[key].playerId;
-    expect(() => chooseWinner(s, nonCzar(s)[0].id, key)).toThrow(GameError);
+    expect(() => chooseWinner(s, nonCzar(s)[0].id, key)).toThrow(AppError);
     chooseWinner(s, czar, key);
     expect(s.players.find((p) => p.id === winnerId)?.score).toBe(1);
     expect(buildView(s, czar).submissions[0].playerId).toBeDefined();

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cringedeck/cards/schema.json",
+  "$id": "https://cringecards/cards/schema.json",
   "title": "Pacote de cartas",
   "description": "Um arquivo por pacote e idioma: data/cards/<lang>/<id>.json. A chave do pacote no jogo é \"<lang>.<id>\".",
   "type": "object",
@@ -29,8 +29,11 @@
       "type": "string"
     },
     "license": {
-      "description": "Licença do conteúdo (ex.: \"CC BY-NC-SA 2.0\").",
-      "type": "string"
+      "description": "Licença(s) do conteúdo. Use uma lista quando a origem declara mais de uma versão (ex.: PDF diz 2.0, site diz 4.0).",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      ]
     },
     "translatedFrom": {
       "description": "Chave do pacote original, quando este pacote é uma tradução (ex.: \"en.base\").",

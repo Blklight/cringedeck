@@ -4,7 +4,8 @@ import { Crown, LogOut, Trophy, Wifi, WifiOff } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { whiteText } from "@/game/cards";
-import type { GameView, PlayerView } from "@/game/types";
+import type { GameView } from "@/game/types";
+import { useT } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/store/useGameStore";
 import { BlackCardView, WhiteCardView } from "./game-card";
@@ -12,6 +13,7 @@ import { BlackCardView, WhiteCardView } from "./game-card";
 const texts = (cards: string[]) => cards.map(whiteText);
 
 function Scoreboard({ view }: { view: GameView }) {
+  const t = useT();
   return (
     <ul className="flex flex-wrap gap-2">
       {view.players.map((p) => (
@@ -26,7 +28,7 @@ function Scoreboard({ view }: { view: GameView }) {
           {p.isCzar ? <Crown className="size-3 text-amber-500" /> : null}
           <span className="font-medium">
             {p.name}
-            {p.id === view.me ? " (você)" : ""}
+            {p.id === view.me ? ` ${t("lobby.you")}` : ""}
           </span>
           <span className="font-mono">{p.score}</span>
           {view.phase === "playing" && !p.isCzar && p.connected ? (
@@ -35,7 +37,7 @@ function Scoreboard({ view }: { view: GameView }) {
                 "size-1.5 rounded-full",
                 p.submitted ? "bg-emerald-500" : "bg-muted-foreground/40",
               )}
-              title={p.submitted ? "Já jogou" : "Pensando…"}
+              title={p.submitted ? t("table.submitted") : t("table.thinking")}
             />
           ) : null}
         </li>
@@ -45,6 +47,7 @@ function Scoreboard({ view }: { view: GameView }) {
 }
 
 function Hand({ view }: { view: GameView }) {
+  const t = useT();
   const play = useGameStore((s) => s.play);
   const [selected, setSelected] = useState<string[]>([]);
   const need = view.black?.pick ?? 1;
@@ -59,13 +62,13 @@ function Hand({ view }: { view: GameView }) {
     <section className="space-y-4">
       <div className="flex items-center justify-between gap-3">
         <h2 className="font-semibold text-sm">
-          Sua mão{need > 1 ? ` — escolha ${need} cartas, na ordem` : ""}
+          {need > 1 ? t("table.handPick", { pick: need }) : t("table.hand")}
         </h2>
         <Button
           disabled={selected.length !== need}
           onClick={() => play(selected)}
         >
-          Jogar {need > 1 ? "cartas" : "carta"}
+          {t("table.play", { count: need })}
         </Button>
       </div>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
@@ -84,23 +87,23 @@ function Hand({ view }: { view: GameView }) {
 }
 
 function Submissions({ view, canPick }: { view: GameView; canPick: boolean }) {
+  const t = useT();
   const pick = useGameStore((s) => s.pick);
   const [chosen, setChosen] = useState<number | null>(null);
   const black = view.black;
   if (!black) return null;
-  const nameOf = (id?: string) =>
-    view.players.find((p: PlayerView) => p.id === id)?.name;
+  const nameOf = (id?: string) => view.players.find((p) => p.id === id)?.name;
 
   return (
     <section className="space-y-4">
       {canPick ? (
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-semibold text-sm">Escolha a melhor resposta</h2>
+          <h2 className="font-semibold text-sm">{t("table.pickBest")}</h2>
           <Button
             disabled={chosen === null}
             onClick={() => chosen !== null && pick(chosen)}
           >
-            <Trophy /> Escolher vencedora
+            <Trophy /> {t("table.chooseWinner")}
           </Button>
         </div>
       ) : null}
@@ -152,13 +155,16 @@ function Submissions({ view, canPick }: { view: GameView; canPick: boolean }) {
 }
 
 function Standings({ view, isHost }: { view: GameView; isHost: boolean }) {
+  const t = useT();
   const restart = useGameStore((s) => s.restart);
   const leave = useGameStore((s) => s.leave);
   const ranked = [...view.players].sort((a, b) => b.score - a.score);
   return (
     <section className="mx-auto w-full max-w-md space-y-4 text-center">
       <Trophy className="mx-auto size-10 text-amber-500" />
-      <h2 className="font-bold text-2xl">{ranked[0]?.name} venceu!</h2>
+      <h2 className="font-bold text-2xl">
+        {t("end.winner", { name: ranked[0]?.name ?? "" })}
+      </h2>
       <ol className="divide-y rounded-lg border text-left">
         {ranked.map((p, i) => (
           <li key={p.id} className="flex items-center gap-3 px-4 py-2 text-sm">
@@ -169,34 +175,53 @@ function Standings({ view, isHost }: { view: GameView; isHost: boolean }) {
         ))}
       </ol>
       <div className="flex justify-center gap-2">
-        {isHost ? <Button onClick={restart}>Jogar de novo</Button> : null}
+        {isHost ? (
+          <Button onClick={restart}>{t("end.playAgain")}</Button>
+        ) : null}
         <Button variant="outline" onClick={leave}>
-          Sair
+          {t("end.leave")}
         </Button>
       </div>
       {!isHost ? (
-        <p className="text-muted-foreground text-xs">
-          Aguardando o anfitrião reabrir a sala…
-        </p>
+        <p className="text-muted-foreground text-xs">{t("end.waitingHost")}</p>
       ) : null}
     </section>
   );
 }
 
+function StatusLine({ view, iAmCzar }: { view: GameView; iAmCzar: boolean }) {
+  const t = useT();
+  const waiting = view.players.filter(
+    (p) => p.connected && !p.isCzar && !p.submitted,
+  ).length;
+  if (view.phase === "playing") {
+    if (iAmCzar) return t("table.waitingAnswers", { count: waiting });
+    if (view.mySubmission) return t("table.waitingPlayers", { count: waiting });
+    return t("table.chooseAnswer");
+  }
+  if (view.phase === "judging") {
+    return iAmCzar ? t("table.readAloud") : t("table.czarChoosing");
+  }
+  if (view.phase === "reveal") {
+    return view.gameOver ? t("table.gameOver") : t("table.roundOver");
+  }
+  return null;
+}
+
 export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
+  const t = useT();
   const next = useGameStore((s) => s.next);
   const leave = useGameStore((s) => s.leave);
   const reconnecting = useGameStore((s) => s.reconnecting);
 
   const iAmCzar = view.czarId === view.me;
   const czar = view.players.find((p) => p.isCzar);
-  const waiting = view.players.filter(
-    (p) => p.connected && !p.isCzar && !p.submitted,
-  ).length;
   const canAdvance = iAmCzar || isHost;
+  const showBlackAlone =
+    view.black && view.phase !== "judging" && view.phase !== "reveal";
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl grow flex-col gap-5 p-4 sm:p-6">
+    <div className="mx-auto flex w-full max-w-5xl grow flex-col gap-5 p-4 pt-16 sm:p-6 sm:pt-16">
       <header className="flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2 text-muted-foreground text-xs">
           {reconnecting ? (
@@ -204,18 +229,21 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
           ) : (
             <Wifi className="size-4" />
           )}
-          Sala <span className="font-mono">{view.code}</span> · Rodada{" "}
-          {view.round} · Vence quem fizer {view.targetScore} pontos
+          <span className="font-mono">
+            {t("table.room", { code: view.code })}
+          </span>
+          · {t("table.round", { round: view.round })} ·{" "}
+          {t("table.target", { target: view.targetScore })}
         </div>
         <Button
           variant="ghost"
           size="xs"
           className="ml-auto"
           onClick={() => {
-            if (window.confirm("Sair da partida?")) leave();
+            if (window.confirm(t("table.leaveConfirm"))) leave();
           }}
         >
-          <LogOut /> Sair
+          <LogOut /> {t("table.leave")}
         </Button>
       </header>
 
@@ -226,46 +254,28 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
       ) : (
         <>
           <div className="flex flex-col items-start gap-4 sm:flex-row">
-            {view.black &&
-            view.phase !== "judging" &&
-            view.phase !== "reveal" ? (
+            {showBlackAlone && view.black ? (
               <BlackCardView card={view.black} className="w-full max-w-60" />
             ) : null}
             <div className="space-y-1">
               <p className="font-semibold">
                 {iAmCzar
-                  ? "Você é o Czar desta rodada."
-                  : `${czar?.name ?? "Alguém"} é o Czar.`}
+                  ? t("table.youAreCzar")
+                  : t("table.someoneCzar", {
+                      name: czar?.name ?? t("table.someone"),
+                    })}
               </p>
               <p className="text-muted-foreground text-sm">
-                {view.phase === "playing" && iAmCzar
-                  ? `Aguardando respostas (${waiting} pendente${waiting === 1 ? "" : "s"})…`
-                  : null}
-                {view.phase === "playing" && !iAmCzar && view.mySubmission
-                  ? `Você jogou. Aguardando ${waiting} jogador${waiting === 1 ? "" : "es"}…`
-                  : null}
-                {view.phase === "playing" && !iAmCzar && !view.mySubmission
-                  ? "Escolha sua resposta mais cringe."
-                  : null}
-                {view.phase === "judging"
-                  ? iAmCzar
-                    ? "Leia em voz alta e escolha a melhor."
-                    : "O Czar está escolhendo…"
-                  : null}
-                {view.phase === "reveal"
-                  ? view.gameOver
-                    ? "Fim de jogo!"
-                    : "Rodada encerrada."
-                  : null}
+                <StatusLine view={view} iAmCzar={iAmCzar} />
               </p>
               {view.phase === "reveal" && canAdvance ? (
                 <Button onClick={next}>
-                  {view.gameOver ? "Ver resultado" : "Próxima rodada"}
+                  {view.gameOver ? t("table.seeResults") : t("table.nextRound")}
                 </Button>
               ) : null}
               {view.phase === "reveal" && !canAdvance ? (
                 <p className="text-muted-foreground text-xs">
-                  Aguardando o Czar seguir para a próxima rodada.
+                  {t("table.waitingCzarNext")}
                 </p>
               ) : null}
             </div>

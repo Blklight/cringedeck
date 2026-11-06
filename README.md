@@ -1,4 +1,6 @@
-# tpl-ui
+# Cringecards
+
+Jogo de cartas de festa no navegador, P2P (PeerJS), multi-idioma e instalável (PWA). Feito a partir do template `tpl-ui`.
 
 Template de front-end em **Next.js 16 (App Router) + React 19 + TypeScript + Tailwind v4**, com a infraestrutura já montada (tema, data fetching, auth store, 71 componentes base-vega sobre Base UI, página de showcase e testes). Use como ponto de partida de novos projetos — só a infraestrutura, sem features de domínio.
 

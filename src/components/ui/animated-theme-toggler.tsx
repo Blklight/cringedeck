@@ -10,26 +10,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { type TranslationKey, useT } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { useLanguageStore } from "@/store/useLanguageStore";
 
 type Theme = "light" | "dark" | "book" | "system";
 
-const OPTIONS: { theme: Theme; label: string; icon: typeof Sun }[] = [
-  { theme: "light", label: "Claro", icon: Sun },
-  { theme: "dark", label: "Escuro", icon: Moon },
-  { theme: "book", label: "Livro", icon: BookOpen },
-  { theme: "system", label: "Sistema", icon: Laptop },
+const OPTIONS: { theme: Theme; label: TranslationKey; icon: typeof Sun }[] = [
+  { theme: "light", label: "theme.light", icon: Sun },
+  { theme: "dark", label: "theme.dark", icon: Moon },
+  { theme: "book", label: "theme.book", icon: BookOpen },
+  { theme: "system", label: "theme.system", icon: Laptop },
 ];
 
 export function AnimatedThemeToggler({ className }: { className?: string }) {
   const { setTheme } = useTheme();
-  const language = useLanguageStore((s) => s.language);
+  const t = useT();
   const triggerRef = useRef<HTMLButtonElement | null>(null);
-  const label =
-    language === "en-us"
-      ? "Toggle light and dark modes"
-      : "Alternar modos de luz e escuro";
+  const label = t("theme.toggle");
 
   const changeTheme = async (theme: Theme) => {
     const trigger = triggerRef.current;
@@ -110,7 +107,7 @@ export function AnimatedThemeToggler({ className }: { className?: string }) {
             onClick={() => changeTheme(theme)}
           >
             <Icon className="mr-1 size-4" />
-            {optionLabel}
+            {t(optionLabel)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

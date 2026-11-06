@@ -5,7 +5,7 @@
   "name": "Base (Brasil)",
   "description": "Baralho base da edição brasileira de Print & Play.",
   "source": "Cards Against Humanity — Print & Play Brasil",
-  "license": "CC BY-NC-SA 2.0",
+  "license": ["CC BY-NC-SA 4.0", "CC BY-NC-SA 2.0"],
   "black": [
     {
       "id": "pt-BR.base.b001",

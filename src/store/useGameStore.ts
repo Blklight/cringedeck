@@ -1,18 +1,19 @@
 import { create } from "zustand";
+import { AppError, type Notice, toNotice } from "@/game/errors";
 import {
-  clearSavedHostState,
   GuestSession,
   HostSession,
   loadSavedHostState,
-  messageOf,
   normalizeCode,
   type SessionEvents,
 } from "@/game/session";
 import type { GameView } from "@/game/types";
+import { APP_SLUG } from "@/lib/brand";
+import { useLanguageStore } from "./useLanguageStore";
 
-const PID_KEY = "cringedeck:pid";
-const NAME_KEY = "cringedeck:name";
-const LAST_ROOM_KEY = "cringedeck:last-room";
+const PID_KEY = `${APP_SLUG}:pid`;
+const NAME_KEY = `${APP_SLUG}:name`;
+const LAST_ROOM_KEY = `${APP_SLUG}:last-room`;
 
 type Status = "idle" | "connecting" | "connected";
 
@@ -25,7 +26,7 @@ interface GameStore {
   status: Status;
   role: "host" | "guest" | null;
   view: GameView | null;
-  notice: string | null;
+  notice: Notice | null;
   reconnecting: boolean;
   savedName: string;
   lastRoom: LastRoom | null;
@@ -35,6 +36,7 @@ interface GameStore {
   joinRoom: (code: string, name: string) => Promise<void>;
   startGame: () => void;
   setTarget: (target: number) => void;
+  setDeckLanguage: (lang: string) => void;
   setPacks: (keys: string[]) => void;
   play: (cards: string[]) => void;
   pick: (key: number) => void;
@@ -85,9 +87,9 @@ function readLastRoom(): LastRoom | null {
 export const useGameStore = create<GameStore>((set, get) => {
   const events = (): SessionEvents => ({
     onView: (view) => set({ view, status: "connected", reconnecting: false }),
-    onError: (message) => set({ notice: message }),
+    onError: (notice) => set({ notice }),
     onReconnecting: () => set({ reconnecting: true }),
-    onClosed: (message) => {
+    onClosed: (code) => {
       host = null;
       guest = null;
       writeStorage(LAST_ROOM_KEY, null);
@@ -95,7 +97,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         status: "idle",
         role: null,
         view: null,
-        notice: message,
+        notice: { code },
         reconnecting: false,
         lastRoom: null,
       });
@@ -105,7 +107,7 @@ export const useGameStore = create<GameStore>((set, get) => {
   const fail = (err: unknown) => {
     host = null;
     guest = null;
-    set({ status: "idle", role: null, view: null, notice: messageOf(err) });
+    set({ status: "idle", role: null, view: null, notice: toNotice(err) });
   };
 
   const remember = (name: string, room: LastRoom) => {
@@ -138,7 +140,12 @@ export const useGameStore = create<GameStore>((set, get) => {
     createRoom: async (name) => {
       set({ status: "connecting", notice: null });
       try {
-        host = await HostSession.create(playerId(), name.trim(), events());
+        host = await HostSession.create(
+          playerId(),
+          name.trim(),
+          useLanguageStore.getState().language,
+          events(),
+        );
         set({ role: "host" });
         remember(name.trim(), { code: host.state.code, role: "host" });
       } catch (err) {
@@ -153,14 +160,14 @@ export const useGameStore = create<GameStore>((set, get) => {
       try {
         if (last.role === "host") {
           const saved = loadSavedHostState();
-          if (!saved) throw new Error("Sala salva não encontrada.");
+          if (!saved) throw new AppError("savedRoomMissing");
           host = await HostSession.resume(saved, events());
           set({ role: "host" });
         } else {
           guest = await GuestSession.join(
             last.code,
             playerId(),
-            get().savedName || "Jogador",
+            get().savedName || "Player",
             events(),
           );
           set({ role: "guest" });
@@ -191,6 +198,7 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     startGame: () => host?.start(),
     setTarget: (target) => host?.setTarget(target),
+    setDeckLanguage: (lang) => host?.setDeckLanguage(lang),
     setPacks: (keys) => host?.setPacks(keys),
     play: (cards) => (host ?? guest)?.play(cards),
     pick: (key) => (host ?? guest)?.pick(key),
@@ -199,10 +207,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     kick: (id) => host?.kick(id),
 
     leave: () => {
-      if (host) {
-        host.close();
-        clearSavedHostState();
-      }
+      host?.close();
       guest?.leave();
       host = null;
       guest = null;

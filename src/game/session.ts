@@ -1,33 +1,35 @@
 import type { DataConnection, Peer } from "peerjs";
+import { APP_SLUG } from "@/lib/brand";
 import {
   backToLobby,
   buildView,
   chooseWinner,
   createGame,
-  GameError,
   joinPlayer,
   nextRound,
   removePlayer,
   STATE_VERSION,
   setConnected,
+  setDeckLanguage,
   setPacks,
   setTargetScore,
   startGame,
   submitCards,
 } from "./engine";
+import { AppError, type ErrorCode, type Notice, toNotice } from "./errors";
 import type { ClientMsg, GameView, HostMsg, HostState } from "./types";
 
-const PEER_PREFIX = "cringedeck-";
+const PEER_PREFIX = `${APP_SLUG}-`;
 const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-const HOST_STORAGE_KEY = "cringedeck:host-state";
+const HOST_STORAGE_KEY = `${APP_SLUG}:host-state`;
 const RECONNECT_DELAY_MS = 2000;
 const MAX_RECONNECTS = 15;
 const CONNECT_TIMEOUT_MS = 15000;
 
 export interface SessionEvents {
   onView: (view: GameView) => void;
-  onError: (message: string) => void;
-  onClosed: (message: string) => void;
+  onError: (notice: Notice) => void;
+  onClosed: (code: ErrorCode) => void;
   onReconnecting?: (attempt: number) => void;
 }
 
@@ -75,13 +77,16 @@ export function clearSavedHostState() {
   safeStorage.remove(HOST_STORAGE_KEY);
 }
 
+const errorType = (err: unknown) =>
+  (err as { type?: string } | null)?.type ?? "";
+
 async function openPeer(id?: string): Promise<Peer> {
   const { Peer } = await import("peerjs");
   const peer = id ? new Peer(id) : new Peer();
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       peer.destroy();
-      reject(new Error("Não foi possível alcançar o servidor de conexão."));
+      reject(new AppError("signalingUnreachable"));
     }, CONNECT_TIMEOUT_MS);
     peer.once("open", () => {
       clearTimeout(timer);
@@ -94,9 +99,6 @@ async function openPeer(id?: string): Promise<Peer> {
     });
   });
 }
-
-const errorType = (err: unknown) =>
-  (err as { type?: string } | null)?.type ?? "";
 
 export class HostSession {
   readonly state: HostState;
@@ -114,20 +116,23 @@ export class HostSession {
   static async create(
     hostId: string,
     name: string,
+    lang: string,
     events: SessionEvents,
   ): Promise<HostSession> {
     for (let attempt = 0; attempt < 5; attempt++) {
-      const code = randomCode();
+      const session = new HostSession(
+        createGame(randomCode(), hostId, name, lang),
+        events,
+      );
       try {
-        const session = new HostSession(createGame(code, hostId, name), events);
         await session.listen();
         session.commit();
         return session;
       } catch (err) {
-        if (errorType(err) !== "unavailable-id") throw err;
+        if (errorType(err) !== "unavailable-id") throw asAppError(err);
       }
     }
-    throw new Error("Não foi possível reservar um código de sala.");
+    throw new AppError("roomCodeFailed");
   }
 
   static async resume(
@@ -143,7 +148,9 @@ export class HostSession {
         await session.listen();
         break;
       } catch (err) {
-        if (errorType(err) !== "unavailable-id" || attempt >= 4) throw err;
+        if (errorType(err) !== "unavailable-id" || attempt >= 4) {
+          throw asAppError(err);
+        }
         await new Promise((r) => setTimeout(r, 2000));
       }
     }
@@ -160,7 +167,7 @@ export class HostSession {
     });
     peer.on("error", (err) => {
       if (errorType(err) !== "peer-unavailable") {
-        this.events.onError("Erro de conexão com o servidor de sinalização.");
+        this.events.onError({ code: "signalingError" });
       }
     });
   }
@@ -178,19 +185,20 @@ export class HostSession {
           playerId = player.id;
           this.commit();
         } catch (err) {
-          this.send(conn, { t: "error", message: messageOf(err) });
+          this.send(conn, { t: "error", ...toNotice(err) });
           setTimeout(() => conn.close(), 300);
         }
         return;
       }
       if (!playerId) return;
+      const pid = playerId;
       if (msg.t === "leave") {
-        this.run(() => removePlayer(this.state, playerId as string), conn);
-        this.conns.delete(playerId);
+        this.run(() => removePlayer(this.state, pid), conn);
+        this.conns.delete(pid);
         conn.close();
         return;
       }
-      this.handleRemote(playerId, msg, conn);
+      this.handleRemote(pid, msg, conn);
     });
     conn.on("close", () => {
       if (!playerId || this.conns.get(playerId) !== conn) return;
@@ -206,7 +214,7 @@ export class HostSession {
       else if (msg.t === "pick") chooseWinner(this.state, playerId, msg.key);
       else if (msg.t === "next") {
         if (playerId !== this.state.czarId && playerId !== this.state.hostId) {
-          throw new GameError("Só o Czar ou o anfitrião avança a rodada.");
+          throw new AppError("onlyCzarOrHost");
         }
         nextRound(this.state);
       }
@@ -218,9 +226,9 @@ export class HostSession {
       action();
       this.commit();
     } catch (err) {
-      if (!(err instanceof GameError)) throw err;
-      if (conn) this.send(conn, { t: "error", message: err.message });
-      else this.events.onError(err.message);
+      if (!(err instanceof AppError)) throw err;
+      if (conn) this.send(conn, { t: "error", ...toNotice(err) });
+      else this.events.onError(toNotice(err));
     }
   }
 
@@ -242,6 +250,10 @@ export class HostSession {
 
   setTarget(target: number) {
     this.run(() => setTargetScore(this.state, target));
+  }
+
+  setDeckLanguage(lang: string) {
+    this.run(() => setDeckLanguage(this.state, lang));
   }
 
   setPacks(keys: string[]) {
@@ -274,14 +286,14 @@ export class HostSession {
     this.run(() => removePlayer(this.state, playerId));
   }
 
-  close(options: { keepSaved?: boolean } = {}) {
+  close() {
     this.closed = true;
     for (const conn of this.conns.values()) {
       this.send(conn, { t: "closed" });
     }
     const peer = this.peer;
     setTimeout(() => peer?.destroy(), 300);
-    if (!options.keepSaved) clearSavedHostState();
+    clearSavedHostState();
   }
 }
 
@@ -305,33 +317,39 @@ export class GuestSession {
     events: SessionEvents,
   ): Promise<GuestSession> {
     const session = new GuestSession(code, pid, name, events);
-    session.peer = await openPeer();
-    await session.connect();
+    try {
+      session.peer = await openPeer();
+      await session.connect();
+    } catch (err) {
+      session.close();
+      throw asAppError(err);
+    }
     return session;
   }
 
   private connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       const peer = this.peer;
-      if (!peer) return reject(new Error("Conexão encerrada."));
+      if (!peer) return reject(new AppError("connectionClosed"));
       const conn = peer.connect(PEER_PREFIX + this.code, {
         reliable: true,
         serialization: "json",
       });
       let settled = false;
-      const timer = setTimeout(
-        () => fail(new Error("A sala não respondeu.")),
-        CONNECT_TIMEOUT_MS,
-      );
       const fail = (err: unknown) => {
         if (settled) return;
         settled = true;
         clearTimeout(timer);
+        peer.off("error", onPeerError);
         reject(err);
       };
+      const timer = setTimeout(
+        () => fail(new AppError("roomNoResponse")),
+        CONNECT_TIMEOUT_MS,
+      );
       const onPeerError = (err: unknown) => {
         if (errorType(err) === "peer-unavailable") {
-          fail(new Error("Sala não encontrada. Confira o código."));
+          fail(new AppError("roomNotFound"));
         }
       };
       peer.on("error", onPeerError);
@@ -349,24 +367,28 @@ export class GuestSession {
           if (!settled) {
             settled = true;
             clearTimeout(timer);
+            peer.off("error", onPeerError);
             resolve();
           }
           this.attempts = 0;
           this.events.onView(msg.view);
         } else if (msg.t === "error") {
-          this.closed = true;
-          fail(new Error(msg.message));
-          this.events.onError(msg.message);
+          if (!settled) {
+            this.closed = true;
+            fail(new AppError(msg.code, msg.params));
+          } else {
+            this.events.onError({ code: msg.code, params: msg.params });
+          }
         } else if (msg.t === "kicked") {
           this.closed = true;
-          this.events.onClosed("Você foi removido da sala.");
+          this.events.onClosed("kicked");
         } else if (msg.t === "closed") {
           this.closed = true;
-          this.events.onClosed("O anfitrião encerrou a sala.");
+          this.events.onClosed("hostClosed");
         }
       });
       conn.on("close", () => {
-        if (!settled) return fail(new Error("A sala recusou a conexão."));
+        if (!settled) return fail(new AppError("roomRefused"));
         if (!this.closed) this.reconnect();
       });
       conn.on("error", fail);
@@ -376,7 +398,7 @@ export class GuestSession {
   private async reconnect() {
     if (this.closed) return;
     if (this.attempts >= MAX_RECONNECTS) {
-      this.events.onClosed("Conexão com a sala perdida.");
+      this.events.onClosed("connectionLost");
       return;
     }
     this.attempts += 1;
@@ -384,8 +406,9 @@ export class GuestSession {
     await new Promise((r) => setTimeout(r, RECONNECT_DELAY_MS));
     if (this.closed) return;
     try {
-      if (this.peer?.disconnected && !this.peer.destroyed)
+      if (this.peer?.disconnected && !this.peer.destroyed) {
         this.peer.reconnect();
+      }
       await this.connect();
     } catch {
       this.reconnect();
@@ -420,5 +443,9 @@ export class GuestSession {
   }
 }
 
-export const messageOf = (err: unknown) =>
-  err instanceof Error ? err.message : "Algo deu errado.";
+function asAppError(err: unknown): AppError {
+  if (err instanceof AppError) return err;
+  return new AppError(
+    errorType(err) === "peer-unavailable" ? "roomNotFound" : "signalingError",
+  );
+}

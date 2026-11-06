@@ -1,5 +1,6 @@
 import { fillBlanks } from "@/game/text";
 import type { BlackCard } from "@/game/types";
+import { APP_NAME } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 const base =
@@ -8,7 +9,7 @@ const base =
 function Footer({ pick }: { pick?: number }) {
   return (
     <div className="flex items-center justify-between text-[0.6rem] font-semibold opacity-80">
-      <span>Cards Against Humanity</span>
+      <span>{APP_NAME}</span>
       {pick && pick > 1 ? (
         <span className="flex items-center gap-1">
           PICK

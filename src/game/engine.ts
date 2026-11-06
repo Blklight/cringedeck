@@ -1,4 +1,5 @@
-import { DEFAULT_PACKS, deckFor, getBlack, getPack } from "./cards";
+import { deckFor, defaultPacksFor, getBlack, getPack, hasPacks } from "./cards";
+import { AppError } from "./errors";
 import type {
   GameView,
   HostState,
@@ -11,11 +12,9 @@ export const HAND_SIZE = 10;
 export const MIN_PLAYERS = 3;
 export const MAX_PLAYERS = 10;
 export const DEFAULT_TARGET_SCORE = 7;
-export const STATE_VERSION = 2;
+export const STATE_VERSION = 3;
 
 export type Rng = () => number;
-
-export class GameError extends Error {}
 
 export function shuffle<T>(items: readonly T[], rng: Rng = Math.random): T[] {
   const out = [...items];
@@ -32,7 +31,9 @@ export function createGame(
   code: string,
   hostId: string,
   hostName: string,
+  lang = "pt-BR",
 ): HostState {
+  const deckLang = hasPacks(lang) ? lang : "pt-BR";
   return {
     version: STATE_VERSION,
     code,
@@ -43,7 +44,8 @@ export function createGame(
     players: [
       { id: hostId, name: hostName, score: 0, connected: true, hand: [] },
     ],
-    packs: [...DEFAULT_PACKS],
+    lang: deckLang,
+    packs: defaultPacksFor(deckLang),
     whiteDeck: [],
     whiteDiscard: [],
     blackDeck: [],
@@ -60,7 +62,7 @@ const findPlayer = (s: HostState, id: string) =>
   s.players.find((p) => p.id === id);
 
 function uniqueName(s: HostState, name: string) {
-  const base = name.trim().slice(0, 20) || "Jogador";
+  const base = name.trim().slice(0, 20) || "Player";
   const taken = new Set(s.players.map((p) => p.name.toLowerCase()));
   let candidate = base;
   for (let n = 2; taken.has(candidate.toLowerCase()); n++) {
@@ -109,7 +111,7 @@ export function joinPlayer(
     return existing;
   }
   if (s.players.length >= MAX_PLAYERS) {
-    throw new GameError("A sala está cheia.");
+    throw new AppError("roomFull");
   }
   const player: PlayerRec = {
     id,
@@ -126,31 +128,38 @@ export function joinPlayer(
 }
 
 export function setTargetScore(s: HostState, target: number) {
-  if (s.phase !== "lobby") throw new GameError("O jogo já começou.");
+  if (s.phase !== "lobby") throw new AppError("gameStarted");
   s.targetScore = Math.min(20, Math.max(1, Math.round(target)));
 }
 
+export function setDeckLanguage(s: HostState, lang: string) {
+  if (s.phase !== "lobby") throw new AppError("gameStarted");
+  if (!hasPacks(lang)) throw new AppError("unknownLanguage");
+  s.lang = lang;
+  s.packs = defaultPacksFor(lang);
+}
+
 export function setPacks(s: HostState, keys: string[]) {
-  if (s.phase !== "lobby") throw new GameError("O jogo já começou.");
-  const valid = [...new Set(keys)].filter((k) => getPack(k));
+  if (s.phase !== "lobby") throw new AppError("gameStarted");
+  const valid = [...new Set(keys)].filter((k) => getPack(k)?.lang === s.lang);
   if (valid.length === 0) {
-    throw new GameError("Escolha ao menos um pacote de cartas.");
+    throw new AppError("needPack");
   }
   s.packs = valid;
 }
 
 export function startGame(s: HostState, rng: Rng = Math.random) {
-  if (s.phase !== "lobby") throw new GameError("O jogo já começou.");
+  if (s.phase !== "lobby") throw new AppError("gameStarted");
   const connected = s.players.filter((p) => p.connected);
   if (connected.length < MIN_PLAYERS) {
-    throw new GameError(`São necessários ao menos ${MIN_PLAYERS} jogadores.`);
+    throw new AppError("needPlayers", { min: MIN_PLAYERS });
   }
   const deck = deckFor(s.packs);
   if (
     deck.black.length === 0 ||
     deck.white.length < connected.length * HAND_SIZE * 2
   ) {
-    throw new GameError("Os pacotes escolhidos não têm cartas suficientes.");
+    throw new AppError("notEnoughCards");
   }
   s.players = connected;
   s.whiteDeck = shuffle(deck.white, rng);
@@ -203,14 +212,14 @@ export function submitCards(
   cards: string[],
   rng: Rng = Math.random,
 ) {
-  if (s.phase !== "playing") throw new GameError("Não é hora de jogar cartas.");
+  if (s.phase !== "playing") throw new AppError("notPlayingPhase");
   const player = findPlayer(s, playerId);
-  if (!player) throw new GameError("Jogador desconhecido.");
+  if (!player) throw new AppError("unknownPlayer");
   if (playerId === s.czarId) {
-    throw new GameError("O Czar não joga cartas brancas.");
+    throw new AppError("czarCantPlay");
   }
   if (s.submissions.some((sub) => sub.playerId === playerId)) {
-    throw new GameError("Você já jogou nesta rodada.");
+    throw new AppError("alreadyPlayed");
   }
   const pick = (s.blackId && getBlack(s.blackId)?.pick) || 1;
   const unique = new Set(cards);
@@ -219,7 +228,7 @@ export function submitCards(
     unique.size !== pick ||
     !cards.every((c) => player.hand.includes(c))
   ) {
-    throw new GameError("Jogada inválida.");
+    throw new AppError("invalidPlay");
   }
   player.hand = player.hand.filter((c) => !unique.has(c));
   s.submissions.push({ playerId, cards });
@@ -227,12 +236,12 @@ export function submitCards(
 }
 
 export function chooseWinner(s: HostState, playerId: string, key: number) {
-  if (s.phase !== "judging") throw new GameError("Não é hora de escolher.");
+  if (s.phase !== "judging") throw new AppError("notJudgingPhase");
   if (playerId !== s.czarId) {
-    throw new GameError("Só o Czar escolhe o vencedor.");
+    throw new AppError("onlyCzarPicks");
   }
   const submission = s.submissions[key];
-  if (!submission) throw new GameError("Resposta inválida.");
+  if (!submission) throw new AppError("invalidAnswer");
   const winner = findPlayer(s, submission.playerId);
   if (winner) {
     winner.score += 1;
@@ -248,7 +257,7 @@ function discardSubmissions(s: HostState) {
 }
 
 export function nextRound(s: HostState, rng: Rng = Math.random) {
-  if (s.phase !== "reveal") throw new GameError("A rodada ainda não acabou.");
+  if (s.phase !== "reveal") throw new AppError("roundNotOver");
   discardSubmissions(s);
   if (s.gameOver) {
     s.phase = "ended";
@@ -332,7 +341,7 @@ export function removePlayer(
 }
 
 export function backToLobby(s: HostState) {
-  if (s.phase !== "ended") throw new GameError("O jogo ainda não terminou.");
+  if (s.phase !== "ended") throw new AppError("notEnded");
   s.phase = "lobby";
   s.round = 0;
   s.czarId = null;
@@ -377,6 +386,7 @@ export function buildView(s: HostState, playerId: string): GameView {
     phase: s.phase,
     round: s.round,
     targetScore: s.targetScore,
+    lang: s.lang,
     packs: s.packs,
     players,
     czarId: s.czarId,

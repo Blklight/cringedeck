@@ -6,6 +6,7 @@ import { ServiceWorker } from "@/components/service-worker";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { APP_DESCRIPTION, APP_NAME } from "@/lib/brand";
 import { withBasePath } from "@/lib/env";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -21,12 +22,12 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cartas Contra a Humanidade",
-  description: "Cards Against Humanity online, direto do navegador (P2P).",
-  applicationName: "Cringedeck",
+  title: APP_NAME,
+  description: APP_DESCRIPTION,
+  applicationName: APP_NAME,
   appleWebApp: {
     capable: true,
-    title: "Cringedeck",
+    title: APP_NAME,
     statusBarStyle: "black-translucent",
   },
   icons: {
