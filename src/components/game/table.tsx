@@ -2,6 +2,7 @@
 
 import { Crown, LogOut, Trophy, Wifi, WifiOff } from "lucide-react";
 import { useState } from "react";
+import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
 import { whiteText } from "@/game/cards";
 import type { GameView } from "@/game/types";
@@ -9,36 +10,54 @@ import { useT } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/store/useGameStore";
 import { BlackCardView, WhiteCardView } from "./game-card";
+import { ctaClass, czarChipClass } from "./styles";
 
 const texts = (cards: string[]) => cards.map(whiteText);
 
 function Scoreboard({ view }: { view: GameView }) {
   const t = useT();
   return (
-    <ul className="flex flex-wrap gap-2">
+    <ul className="flex flex-wrap gap-2" aria-label={t("a11y.scoreboard")}>
       {view.players.map((p) => (
         <li
           key={p.id}
           className={cn(
             "flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs",
-            p.isCzar && "border-amber-500 bg-amber-500/10",
+            p.isCzar && czarChipClass,
             !p.connected && "opacity-50",
           )}
         >
-          {p.isCzar ? <Crown className="size-3 text-amber-500" /> : null}
+          {p.isCzar ? (
+            <>
+              <Crown aria-hidden="true" className="size-3" />
+              <span className="sr-only">{t("a11y.czar")}:</span>
+            </>
+          ) : null}
           <span className="font-medium">
             {p.name}
             {p.id === view.me ? ` ${t("lobby.you")}` : ""}
           </span>
-          <span className="font-mono">{p.score}</span>
+          <span className="font-mono" aria-hidden="true">
+            {p.score}
+          </span>
+          <span className="sr-only">
+            , {t("a11y.points", { count: p.score })}
+            {p.connected ? "" : `, ${t("lobby.offline")}`}
+          </span>
           {view.phase === "playing" && !p.isCzar && p.connected ? (
-            <span
-              className={cn(
-                "size-1.5 rounded-full",
-                p.submitted ? "bg-emerald-500" : "bg-muted-foreground/40",
-              )}
-              title={p.submitted ? t("table.submitted") : t("table.thinking")}
-            />
+            <>
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "size-1.5 rounded-full",
+                  p.submitted ? "bg-emerald-500" : "bg-muted-foreground/40",
+                )}
+                title={p.submitted ? t("table.submitted") : t("table.thinking")}
+              />
+              <span className="sr-only">
+                , {p.submitted ? t("table.submitted") : t("table.thinking")}
+              </span>
+            </>
           ) : null}
         </li>
       ))}
@@ -64,17 +83,28 @@ function Hand({ view }: { view: GameView }) {
         <h2 className="font-semibold text-sm">
           {need > 1 ? t("table.handPick", { pick: need }) : t("table.hand")}
         </h2>
-        <Button
-          disabled={selected.length !== need}
-          onClick={() => play(selected)}
+        <Hint
+          label={
+            selected.length !== need
+              ? t("hint.selectCards", { count: need })
+              : null
+          }
+          wrapClassName="inline-flex"
         >
-          {t("table.play", { count: need })}
-        </Button>
+          <Button
+            className={ctaClass}
+            disabled={selected.length !== need}
+            onClick={() => play(selected)}
+          >
+            {t("table.play", { count: need })}
+          </Button>
+        </Hint>
       </div>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-5">
         {view.hand.map((card) => (
           <WhiteCardView
             key={card}
+            lang={view.lang}
             text={whiteText(card)}
             selected={selected.includes(card)}
             order={selected.indexOf(card) + 1}
@@ -99,15 +129,21 @@ function Submissions({ view, canPick }: { view: GameView; canPick: boolean }) {
       {canPick ? (
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-semibold text-sm">{t("table.pickBest")}</h2>
-          <Button
-            disabled={chosen === null}
-            onClick={() => chosen !== null && pick(chosen)}
+          <Hint
+            label={chosen === null ? t("hint.selectAnswer") : null}
+            wrapClassName="inline-flex"
           >
-            <Trophy /> {t("table.chooseWinner")}
-          </Button>
+            <Button
+              className={ctaClass}
+              disabled={chosen === null}
+              onClick={() => chosen !== null && pick(chosen)}
+            >
+              <Trophy aria-hidden="true" /> {t("table.chooseWinner")}
+            </Button>
+          </Hint>
         </div>
       ) : null}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
         {view.submissions.map((sub) => {
           const isWinner = view.winnerKey === sub.key;
           const picked = chosen === sub.key;
@@ -115,10 +151,9 @@ function Submissions({ view, canPick }: { view: GameView; canPick: boolean }) {
             <BlackCardView
               card={black}
               answers={texts(sub.cards)}
-              className={cn(
-                "aspect-auto min-h-48 w-full",
-                (picked || isWinner) && "ring-4 ring-amber-400",
-              )}
+              lang={view.lang}
+              highlight={isWinner ? "winner" : picked ? "selected" : "none"}
+              className="w-full"
             />
           );
           return (
@@ -126,7 +161,7 @@ function Submissions({ view, canPick }: { view: GameView; canPick: boolean }) {
               {canPick ? (
                 <button
                   type="button"
-                  className="block w-full text-left"
+                  className="block w-full rounded-[18px] text-left outline-none focus-visible:ring-3 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-pressed={picked}
                   onClick={() => setChosen(sub.key)}
                 >
@@ -137,13 +172,13 @@ function Submissions({ view, canPick }: { view: GameView; canPick: boolean }) {
               )}
               {sub.playerId ? (
                 <p
-                  className={cn(
-                    "text-center text-sm",
-                    isWinner && "font-bold text-amber-500",
-                  )}
+                  className={cn("text-center text-sm", isWinner && "font-bold")}
                 >
-                  {isWinner ? "🏆 " : ""}
-                  {nameOf(sub.playerId)}
+                  {isWinner ? (
+                    <span className="flat-mark">🏆 {nameOf(sub.playerId)}</span>
+                  ) : (
+                    nameOf(sub.playerId)
+                  )}
                 </p>
               ) : null}
             </div>
@@ -161,7 +196,7 @@ function Standings({ view, isHost }: { view: GameView; isHost: boolean }) {
   const ranked = [...view.players].sort((a, b) => b.score - a.score);
   return (
     <section className="mx-auto w-full max-w-md space-y-4 text-center">
-      <Trophy className="mx-auto size-10 text-amber-500" />
+      <Trophy aria-hidden="true" className="mx-auto size-10 text-answer-edge" />
       <h2 className="font-bold text-2xl">
         {t("end.winner", { name: ranked[0]?.name ?? "" })}
       </h2>
@@ -176,11 +211,17 @@ function Standings({ view, isHost }: { view: GameView; isHost: boolean }) {
       </ol>
       <div className="flex justify-center gap-2">
         {isHost ? (
-          <Button onClick={restart}>{t("end.playAgain")}</Button>
+          <Hint label={t("hint.playAgain")}>
+            <Button className={ctaClass} onClick={restart}>
+              {t("end.playAgain")}
+            </Button>
+          </Hint>
         ) : null}
-        <Button variant="outline" onClick={leave}>
-          {t("end.leave")}
-        </Button>
+        <Hint label={t("hint.leaveRoom")}>
+          <Button variant="outline" onClick={leave}>
+            {t("end.leave")}
+          </Button>
+        </Hint>
       </div>
       {!isHost ? (
         <p className="text-muted-foreground text-xs">{t("end.waitingHost")}</p>
@@ -217,34 +258,46 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
   const iAmCzar = view.czarId === view.me;
   const czar = view.players.find((p) => p.isCzar);
   const canAdvance = iAmCzar || isHost;
+  const winnerId = view.submissions.find(
+    (s) => s.key === view.winnerKey,
+  )?.playerId;
+  const roundWinner =
+    view.phase === "reveal"
+      ? view.players.find((p) => p.id === winnerId)?.name
+      : undefined;
   const showBlackAlone =
     view.black && view.phase !== "judging" && view.phase !== "reveal";
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl grow flex-col gap-5 p-4 pt-16 sm:p-6 sm:pt-16">
+    <div className="mx-auto flex w-full max-w-7xl grow flex-col gap-5 p-4 pt-16 sm:p-6 sm:pt-16 xl:px-10">
       <header className="flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2 text-muted-foreground text-xs">
-          {reconnecting ? (
-            <WifiOff className="size-4 text-destructive" />
-          ) : (
-            <Wifi className="size-4" />
-          )}
-          <span className="font-mono">
-            {t("table.room", { code: view.code })}
-          </span>
-          · {t("table.round", { round: view.round })} ·{" "}
+          <output className="flex items-center">
+            {reconnecting ? (
+              <WifiOff aria-hidden="true" className="size-4 text-destructive" />
+            ) : (
+              <Wifi aria-hidden="true" className="size-4" />
+            )}
+            <span className="sr-only">
+              {reconnecting ? t("a11y.reconnecting") : t("a11y.connected")}
+            </span>
+          </output>
+          <h1 className="font-mono">{t("table.room", { code: view.code })}</h1>·{" "}
+          {t("table.round", { round: view.round })} ·{" "}
           {t("table.target", { target: view.targetScore })}
         </div>
-        <Button
-          variant="ghost"
-          size="xs"
-          className="ml-auto"
-          onClick={() => {
-            if (window.confirm(t("table.leaveConfirm"))) leave();
-          }}
-        >
-          <LogOut /> {t("table.leave")}
-        </Button>
+        <Hint label={t("hint.leaveRoom")}>
+          <Button
+            variant="ghost"
+            size="xs"
+            className="ml-auto"
+            onClick={() => {
+              if (window.confirm(t("table.leaveConfirm"))) leave();
+            }}
+          >
+            <LogOut aria-hidden="true" /> {t("table.leave")}
+          </Button>
+        </Hint>
       </header>
 
       <Scoreboard view={view} />
@@ -255,7 +308,12 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
         <>
           <div className="flex flex-col items-start gap-4 sm:flex-row">
             {showBlackAlone && view.black ? (
-              <BlackCardView card={view.black} className="w-full max-w-60" />
+              <BlackCardView
+                card={view.black}
+                lang={view.lang}
+                answers={view.mySubmission ? texts(view.mySubmission) : []}
+                className="w-full max-w-64"
+              />
             ) : null}
             <div className="space-y-1">
               <p className="font-semibold">
@@ -265,13 +323,26 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
                       name: czar?.name ?? t("table.someone"),
                     })}
               </p>
-              <p className="text-muted-foreground text-sm">
+              <output
+                aria-live="polite"
+                className="block text-muted-foreground text-sm"
+              >
                 <StatusLine view={view} iAmCzar={iAmCzar} />
-              </p>
+                {roundWinner ? (
+                  <span className="sr-only">
+                    {" "}
+                    {t("a11y.roundWinner", { name: roundWinner })}
+                  </span>
+                ) : null}
+              </output>
               {view.phase === "reveal" && canAdvance ? (
-                <Button onClick={next}>
-                  {view.gameOver ? t("table.seeResults") : t("table.nextRound")}
-                </Button>
+                <Hint label={view.gameOver ? null : t("hint.nextRound")}>
+                  <Button className={ctaClass} onClick={next}>
+                    {view.gameOver
+                      ? t("table.seeResults")
+                      : t("table.nextRound")}
+                  </Button>
+                </Hint>
               ) : null}
               {view.phase === "reveal" && !canAdvance ? (
                 <p className="text-muted-foreground text-xs">
@@ -283,13 +354,6 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
 
           {view.phase === "playing" && !iAmCzar && !view.mySubmission ? (
             <Hand key={view.round} view={view} />
-          ) : null}
-          {view.phase === "playing" && view.mySubmission && view.black ? (
-            <BlackCardView
-              card={view.black}
-              answers={texts(view.mySubmission)}
-              className="aspect-auto min-h-40 w-full max-w-sm"
-            />
           ) : null}
           {view.phase === "judging" || view.phase === "reveal" ? (
             <Submissions

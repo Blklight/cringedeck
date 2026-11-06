@@ -163,6 +163,19 @@
   --background-paper-child-aside:
     var(--img-noise), linear-gradient(to top, #000 0%, transparent 340px);
 
+  /* --- Game cards (contraste WCAG: prompt 5.0:1, answer 11.4:1, mark 13.7:1) --- */
+  --prompt: #3366e6;
+  --prompt-foreground: #ffffff;
+  --prompt-muted: #ffffff;
+  --prompt-edge: #1f4fc4;
+  --answer: #facc15;
+  --answer-foreground: #1c1917;
+  --answer-muted: #713f12;
+  --answer-edge: #ca9a04;
+  --mark-foreground: #000000;
+  --card-font: var(--font-mono), "JetBrains Mono", monospace;
+  --card-tracking: 0em;
+
   /* --- Semantic color tokens --- */
   --background: var(--color-light);
   --foreground: var(--color-dark);
@@ -285,6 +298,15 @@
 
   /* --- Semantic color mapping --- */
   --color-background: var(--background);
+  --color-prompt: var(--prompt);
+  --color-prompt-foreground: var(--prompt-foreground);
+  --color-prompt-muted: var(--prompt-muted);
+  --color-prompt-edge: var(--prompt-edge);
+  --color-answer: var(--answer);
+  --color-answer-foreground: var(--answer-foreground);
+  --color-answer-muted: var(--answer-muted);
+  --color-answer-edge: var(--answer-edge);
+  --color-mark-foreground: var(--mark-foreground);
   --color-foreground: var(--foreground);
   --color-ink: var(--ink);
   --color-surface: var(--surface);
@@ -484,6 +506,38 @@
 
 .texture-item {
   position: relative;
+}
+
+@layer components {
+  .game-card-surface {
+    position: relative;
+    isolation: isolate;
+    background-image: url("../assets/images/noisy.png");
+  }
+
+  .game-card-surface::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--img-noise);
+    mix-blend-mode: overlay;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .game-card-surface > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .flat-mark {
+    background: var(--answer);
+    color: var(--mark-foreground);
+    padding: 0.05em 0.25em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
 }
 
 .texture-item::after {

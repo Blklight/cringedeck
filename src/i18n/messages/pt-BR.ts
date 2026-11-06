@@ -62,6 +62,66 @@ export const ptBR = {
 
   "header.language": "Idioma",
   "header.install": "Instalar app",
+  "header.installHint": "Instalar o Cringecards como app neste aparelho",
+  "header.about": "Sobre",
+  "about.title": "Sobre o {app}",
+  "about.intro":
+    "O {app} é um projeto de fã, gratuito e sem fins lucrativos: um jogo de cartas de festa que roda direto no navegador, sem cadastro.",
+  "about.p2p":
+    "As partidas são peer-to-peer. O navegador de quem cria a sala guarda o jogo; não existe servidor nosso recebendo seus dados — só um servidor público de sinalização (PeerJS) para os navegadores se encontrarem.",
+  "about.originalTitle": "Baseado em Cards Against Humanity",
+  "about.original":
+    "As cartas vêm do Cards Against Humanity, criado pela Cards Against Humanity LLC e distribuído sob a licença Creative Commons BY-NC-SA. Este projeto não é afiliado, patrocinado nem endossado pela Cards Against Humanity LLC.",
+  "about.license":
+    "Conteúdo das cartas: CC BY-NC-SA 4.0 / 2.0. Por isso o {app} também é não comercial e compartilhado sob a mesma licença.",
+  "about.support": "Gostou? Apoie o original",
+  "about.close": "Fechar",
+  "rules.open": "Regras",
+  "rules.title": "Como jogar",
+  "rules.step1": "Cada jogador começa com 10 cartas amarelas (respostas).",
+  "rules.step2":
+    "A cada rodada, um jogador é o Czar e revela uma carta azul: uma pergunta ou uma frase com lacuna.",
+  "rules.step3":
+    "Os outros escolhem a carta da mão que completa melhor — ou de um jeito mais absurdo — e jogam. As respostas chegam anônimas.",
+  "rules.step4":
+    "O Czar lê as combinações em voz alta e escolhe a favorita. Quem jogou ganha 1 ponto.",
+  "rules.step5":
+    "Todos completam a mão de volta para 10 cartas e o próximo jogador vira o Czar.",
+  "rules.pickTitle": "PICK 2 e PICK 3",
+  "rules.pick":
+    "Algumas cartas azuis pedem 2 ou 3 respostas. Escolha na ordem em que devem ser lidas: o número que aparece na carta selecionada indica a ordem.",
+  "rules.winTitle": "Quem vence",
+  "rules.win":
+    "Quem chegar primeiro aos pontos definidos pelo anfitrião no lobby.",
+  "rules.notesTitle": "Bom saber",
+  "rules.notes":
+    "São necessários pelo menos 3 jogadores. Se o Czar sair, a rodada é pulada e as cartas jogadas voltam para a mão.",
+  "about.madeBy": "Projeto de:",
+  "a11y.skip": "Pular para o conteúdo",
+  "a11y.blank": "lacuna",
+  "a11y.pick": "Escolha {pick} cartas",
+  "a11y.order": "escolha {order}",
+  "a11y.czar": "Czar",
+  "a11y.host": "Anfitrião",
+  "a11y.points_one": "1 ponto",
+  "a11y.points_other": "{count} pontos",
+  "a11y.connected": "Conectado",
+  "a11y.reconnecting": "Reconectando…",
+  "a11y.scoreboard": "Placar",
+  "a11y.roundWinner": "{name} venceu a rodada.",
+  "a11y.newTab": "(abre em nova aba)",
+  "a11y.copied": "Link copiado.",
+  "hint.rules": "Ver as regras do jogo",
+  "hint.needName": "Digite seu nome primeiro",
+  "hint.needCode": "Digite o código da sala (5 letras)",
+  "hint.resume": "Reconectar à última sala em que você estava",
+  "hint.copyInvite": "Copia um link que leva direto para esta sala",
+  "hint.leaveRoom": "Sair e voltar para a tela inicial",
+  "hint.selectCards_one": "Selecione 1 carta da sua mão",
+  "hint.selectCards_other": "Selecione {count} cartas da sua mão, na ordem",
+  "hint.selectAnswer": "Clique em uma resposta para selecioná-la",
+  "hint.nextRound": "Começa a próxima rodada com um novo Czar",
+  "hint.playAgain": "Volta ao lobby com os mesmos jogadores",
   "theme.toggle": "Alternar tema",
   "theme.light": "Claro",
   "theme.dark": "Escuro",

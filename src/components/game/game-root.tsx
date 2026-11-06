@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { AppHeader } from "@/components/app-header";
+import { RulesSheet } from "@/components/rules-sheet";
 import { detectLocale, useLocale, useT } from "@/i18n";
 import { useGameStore } from "@/store/useGameStore";
 import { useLanguageStore } from "@/store/useLanguageStore";
@@ -10,7 +11,7 @@ import { HomeScreen } from "./home-screen";
 import { Lobby } from "./lobby";
 import { Table } from "./table";
 
-function useLanguageBootstrap() {
+export function useLanguageBootstrap() {
   const locale = useLocale();
 
   useEffect(() => {
@@ -30,14 +31,9 @@ export function GameRoot() {
   const view = useGameStore((s) => s.view);
   const role = useGameStore((s) => s.role);
   const notice = useGameStore((s) => s.notice);
-  const hydrate = useGameStore((s) => s.hydrate);
   const dismissNotice = useGameStore((s) => s.dismissNotice);
 
   useLanguageBootstrap();
-
-  useEffect(() => {
-    hydrate();
-  }, [hydrate]);
 
   useEffect(() => {
     if (!notice) return;
@@ -48,7 +44,7 @@ export function GameRoot() {
   const isHost = role === "host";
   return (
     <>
-      <AppHeader />
+      <AppHeader showLogo={Boolean(view)} />
       {!view ? (
         <HomeScreen />
       ) : view.phase === "lobby" ? (
@@ -56,6 +52,7 @@ export function GameRoot() {
       ) : (
         <Table view={view} isHost={isHost} />
       )}
+      <RulesSheet />
     </>
   );
 }

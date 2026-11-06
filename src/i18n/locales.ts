@@ -19,3 +19,23 @@ export function detectLocale(languages: readonly string[]): Locale {
   }
   return "pt-BR";
 }
+
+function displayName(lang: string, inLocale: string) {
+  try {
+    const name = new Intl.DisplayNames([inLocale], { type: "language" }).of(
+      lang,
+    );
+    if (!name || name === lang) return lang;
+    return name.charAt(0).toLocaleUpperCase(inLocale) + name.slice(1);
+  } catch {
+    return lang;
+  }
+}
+
+export function languageName(lang: string, uiLocale: string) {
+  return displayName(lang, uiLocale);
+}
+
+export function nativeLanguageName(lang: string) {
+  return displayName(lang, lang);
+}

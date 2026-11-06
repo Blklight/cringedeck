@@ -6,7 +6,7 @@ import { ServiceWorker } from "@/components/service-worker";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { APP_DESCRIPTION, APP_NAME } from "@/lib/brand";
+import { APP_DESCRIPTION, APP_NAME, APP_SLUG } from "@/lib/brand";
 import { withBasePath } from "@/lib/env";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -67,10 +67,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           defaultTheme="system"
           enableSystem
           themes={["light", "dark", "book"]}
+          storageKey={`${APP_SLUG}:theme`}
           disableTransitionOnChange
         >
           <QueryProvider>
-            <TooltipProvider>{children}</TooltipProvider>
+            <TooltipProvider delay={350}>{children}</TooltipProvider>
             <Toaster />
             <ServiceWorker />
           </QueryProvider>

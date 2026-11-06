@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { APP_SLUG } from "@/lib/brand";
 
 export interface LanguageStore {
   language: Locale;
@@ -16,7 +17,7 @@ export const useLanguageStore = create<LanguageStore>()(
       setLanguage: (language, chosen = true) => set({ language, chosen }),
     }),
     {
-      name: "lang-storage",
+      name: `${APP_SLUG}:lang`,
       version: 1,
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,

@@ -9,7 +9,7 @@ Cada pacote é um JSON em `data/cards/<lang>/<id>.json`, validado por [`schema.j
 
 ## Licença e marca
 
-O conteúdo das cartas vem de Cards Against Humanity, distribuído sob Creative Commons BY-NC-SA. Os PDFs Print & Play declaram a **2.0**; o site atual declara a **4.0** — por isso os pacotes listam as duas em `license`.
+O conteúdo das cartas vem de Cards Against Humanity, distribuído sob Creative Commons BY-NC-SA. Os PDFs Print & Play declaram a **2.0**; o site atual declara a **4.0** — por isso os pacotes listam as duas em `license`. Os textos completos ficam em `LICENSE` (4.0) e `LICENSE-2.0` (2.0), e o aviso de atribuição em `NOTICE.md`.
 
 - **BY (atribuição):** a origem fica registrada em `source` de cada pacote e no `NOTICE.md`.
 - **NC (não comercial):** o projeto não pode ser vendido nem monetizado.

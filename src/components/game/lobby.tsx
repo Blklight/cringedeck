@@ -3,23 +3,32 @@
 import { Check, Copy, Crown, UserX } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { PACK_LANGS, packsFor } from "@/game/cards";
 import { MIN_PLAYERS } from "@/game/engine";
 import type { GameView } from "@/game/types";
-import { isLocale, LOCALE_NAMES, useT } from "@/i18n";
+import { languageName, nativeLanguageName, useLocale, useT } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/store/useGameStore";
+import { ctaClass } from "./styles";
 
 function inviteLink(code: string) {
   const { origin, pathname } = window.location;
   return `${origin}${pathname}#/room/${code}`;
 }
 
-const langName = (lang: string) => (isLocale(lang) ? LOCALE_NAMES[lang] : lang);
-
 export function Lobby({ view, isHost }: { view: GameView; isHost: boolean }) {
   const t = useT();
+  const locale = useLocale();
+  const langName = (lang: string) => languageName(lang, locale);
   const startGame = useGameStore((s) => s.startGame);
   const setTarget = useGameStore((s) => s.setTarget);
   const setDeckLanguage = useGameStore((s) => s.setDeckLanguage);
@@ -46,16 +55,27 @@ export function Lobby({ view, isHost }: { view: GameView; isHost: boolean }) {
     );
 
   return (
-    <div className="mx-auto flex w-full max-w-lg grow flex-col justify-center gap-6 p-6 pt-16">
+    <div className="mx-auto flex w-full max-w-xl grow flex-col justify-center gap-6 p-6 pt-16">
       <section className="space-y-3 text-center">
-        <p className="text-muted-foreground text-sm">{t("lobby.roomCode")}</p>
-        <p className="font-bold font-mono text-5xl tracking-[0.3em]">
-          {view.code}
-        </p>
-        <Button variant="outline" size="sm" onClick={copy}>
-          {copied ? <Check /> : <Copy />}
-          {t("lobby.copyInvite")}
-        </Button>
+        <h1 className="space-y-3">
+          <span className="block text-muted-foreground text-sm">
+            {t("lobby.roomCode")}
+          </span>
+          <span className="block font-bold font-mono text-5xl">
+            <span className="flat-mark tracking-[0.3em]">{view.code}</span>
+          </span>
+        </h1>
+        <Hint label={t("hint.copyInvite")}>
+          <Button variant="outline" size="sm" onClick={copy}>
+            {copied ? (
+              <Check aria-hidden="true" />
+            ) : (
+              <Copy aria-hidden="true" />
+            )}
+            {t("lobby.copyInvite")}
+          </Button>
+        </Hint>
+        <output className="sr-only">{copied ? t("a11y.copied") : ""}</output>
       </section>
 
       <section className="space-y-2">
@@ -72,22 +92,32 @@ export function Lobby({ view, isHost }: { view: GameView; isHost: boolean }) {
                 {p.name}
                 {p.id === view.me ? ` ${t("lobby.you")}` : ""}
               </span>
-              {p.isHost ? <Crown className="size-3.5 text-amber-500" /> : null}
+              {p.isHost ? (
+                <>
+                  <Crown
+                    aria-hidden="true"
+                    className="size-3.5 text-answer-edge"
+                  />
+                  <span className="sr-only">({t("a11y.host")})</span>
+                </>
+              ) : null}
               {!p.connected ? (
                 <span className="text-muted-foreground text-xs">
                   {t("lobby.offline")}
                 </span>
               ) : null}
               {isHost && !p.isHost ? (
-                <Button
-                  variant="ghost"
-                  size="icon-xs"
-                  className="ml-auto"
-                  aria-label={t("lobby.kick", { name: p.name })}
-                  onClick={() => kick(p.id)}
-                >
-                  <UserX />
-                </Button>
+                <Hint label={t("lobby.kick", { name: p.name })}>
+                  <Button
+                    variant="ghost"
+                    size="icon-xs"
+                    className="ml-auto"
+                    aria-label={t("lobby.kick", { name: p.name })}
+                    onClick={() => kick(p.id)}
+                  >
+                    <UserX aria-hidden="true" />
+                  </Button>
+                </Hint>
               ) : null}
             </li>
           ))}
@@ -96,26 +126,46 @@ export function Lobby({ view, isHost }: { view: GameView; isHost: boolean }) {
 
       <section className="space-y-2">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-semibold text-sm">{t("lobby.deckLanguage")}</h2>
+          <h2 id="deck-language" className="font-semibold text-sm">
+            {t("lobby.deckLanguage")}
+          </h2>
           {isHost ? (
-            <div
-              className="flex gap-1"
-              role="radiogroup"
-              aria-label={t("lobby.deckLanguage")}
+            <Select
+              value={view.lang}
+              items={PACK_LANGS.map((lang) => ({
+                value: lang,
+                label: langName(lang),
+              }))}
+              onValueChange={(lang) => {
+                if (lang) setDeckLanguage(lang);
+              }}
             >
-              {PACK_LANGS.map((lang) => (
-                <Button
-                  key={lang}
-                  size="xs"
-                  role="radio"
-                  aria-checked={view.lang === lang}
-                  variant={view.lang === lang ? "default" : "outline"}
-                  onClick={() => setDeckLanguage(lang)}
-                >
-                  {langName(lang)}
-                </Button>
-              ))}
-            </div>
+              <SelectTrigger
+                aria-labelledby="deck-language"
+                className="min-w-44"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent align="end" alignItemWithTrigger={false}>
+                {PACK_LANGS.map((lang) => {
+                  const native = nativeLanguageName(lang);
+                  const name = langName(lang);
+                  return (
+                    <SelectItem key={lang} value={lang}>
+                      {name}
+                      {native !== name ? (
+                        <span
+                          lang={lang}
+                          className="text-muted-foreground text-xs"
+                        >
+                          {native}
+                        </span>
+                      ) : null}
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
           ) : (
             <span className="text-sm">{langName(view.lang)}</span>
           )}
@@ -173,28 +223,40 @@ export function Lobby({ view, isHost }: { view: GameView; isHost: boolean }) {
               max={15}
               value={view.targetScore}
               onChange={(e) => setTarget(Number(e.target.value))}
+              aria-valuetext={t("a11y.points", { count: view.targetScore })}
               className="grow accent-blklight-500"
             />
             <span className="w-6 text-right font-mono">{view.targetScore}</span>
           </label>
-          <Button
-            size="lg"
-            className="w-full"
-            disabled={connected < MIN_PLAYERS}
-            onClick={startGame}
+          <Hint
+            label={
+              connected < MIN_PLAYERS
+                ? t("errors.needPlayers", { min: MIN_PLAYERS })
+                : null
+            }
+            wrapClassName="block"
           >
-            {t("lobby.start")}
-          </Button>
+            <Button
+              size="lg"
+              className={cn("w-full", ctaClass)}
+              disabled={connected < MIN_PLAYERS}
+              onClick={startGame}
+            >
+              {t("lobby.start")}
+            </Button>
+          </Hint>
         </section>
       ) : (
-        <p className="text-center text-muted-foreground text-sm">
+        <output className="block text-center text-muted-foreground text-sm">
           {t("lobby.waitingHost")}
-        </p>
+        </output>
       )}
 
-      <Button variant="ghost" size="sm" className="mx-auto" onClick={leave}>
-        {t("lobby.leave")}
-      </Button>
+      <Hint label={t("hint.leaveRoom")}>
+        <Button variant="ghost" size="sm" className="mx-auto" onClick={leave}>
+          {t("lobby.leave")}
+        </Button>
+      </Hint>
     </div>
   );
 }

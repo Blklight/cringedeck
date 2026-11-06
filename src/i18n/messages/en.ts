@@ -64,6 +64,66 @@ export const en: Record<MessageKey, string> = {
 
   "header.language": "Language",
   "header.install": "Install app",
+  "header.installHint": "Install Cringecards as an app on this device",
+  "header.about": "About",
+  "about.title": "About {app}",
+  "about.intro":
+    "{app} is a free, non-profit fan project: a party card game that runs right in your browser, no sign-up needed.",
+  "about.p2p":
+    "Games are peer-to-peer. The room creator's browser holds the game; there is no server of ours receiving your data — only a public signaling server (PeerJS) so browsers can find each other.",
+  "about.originalTitle": "Based on Cards Against Humanity",
+  "about.original":
+    "The cards come from Cards Against Humanity, created by Cards Against Humanity LLC and distributed under the Creative Commons BY-NC-SA license. This project is not affiliated with, sponsored or endorsed by Cards Against Humanity LLC.",
+  "about.license":
+    "Card content: CC BY-NC-SA 4.0 / 2.0. That's why {app} is also non-commercial and shared under the same license.",
+  "about.support": "Like it? Support the original",
+  "about.close": "Close",
+  "rules.open": "Rules",
+  "rules.title": "How to play",
+  "rules.step1": "Everyone starts with 10 yellow cards (answers).",
+  "rules.step2":
+    "Each round, one player is the Czar and reveals a blue card: a question or a fill-in-the-blank phrase.",
+  "rules.step3":
+    "Everyone else picks the card from their hand that fits best — or most absurdly — and plays it. Answers arrive anonymously.",
+  "rules.step4":
+    "The Czar reads the combinations out loud and picks a favorite. Whoever played it scores 1 point.",
+  "rules.step5":
+    "Everyone draws back up to 10 cards and the next player becomes the Czar.",
+  "rules.pickTitle": "PICK 2 and PICK 3",
+  "rules.pick":
+    "Some blue cards ask for 2 or 3 answers. Pick them in the order they should be read: the number on each selected card shows the order.",
+  "rules.winTitle": "Who wins",
+  "rules.win":
+    "The first player to reach the points set by the host in the lobby.",
+  "rules.notesTitle": "Good to know",
+  "rules.notes":
+    "At least 3 players are needed. If the Czar leaves, the round is skipped and played cards return to their hands.",
+  "about.madeBy": "A project by:",
+  "a11y.skip": "Skip to content",
+  "a11y.blank": "blank",
+  "a11y.pick": "Pick {pick} cards",
+  "a11y.order": "pick {order}",
+  "a11y.czar": "Czar",
+  "a11y.host": "Host",
+  "a11y.points_one": "1 point",
+  "a11y.points_other": "{count} points",
+  "a11y.connected": "Connected",
+  "a11y.reconnecting": "Reconnecting…",
+  "a11y.scoreboard": "Scoreboard",
+  "a11y.roundWinner": "{name} won the round.",
+  "a11y.newTab": "(opens in a new tab)",
+  "a11y.copied": "Link copied.",
+  "hint.rules": "See the game rules",
+  "hint.needName": "Type your name first",
+  "hint.needCode": "Type the room code (5 letters)",
+  "hint.resume": "Reconnect to the last room you were in",
+  "hint.copyInvite": "Copies a link that goes straight to this room",
+  "hint.leaveRoom": "Leave and go back to the home screen",
+  "hint.selectCards_one": "Select 1 card from your hand",
+  "hint.selectCards_other": "Select {count} cards from your hand, in order",
+  "hint.selectAnswer": "Click an answer to select it",
+  "hint.nextRound": "Starts the next round with a new Czar",
+  "hint.playAgain": "Back to the lobby with the same players",
   "theme.toggle": "Toggle theme",
   "theme.light": "Light",
   "theme.dark": "Dark",

@@ -4,6 +4,8 @@ import { BookOpen, Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRef } from "react";
 import { flushSync } from "react-dom";
+import { headerButtonClass } from "@/components/header-button";
+import { Hint } from "@/components/hint";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,35 +69,33 @@ export function AnimatedThemeToggler({ className }: { className?: string }) {
 
   return (
     <DropdownMenu modal={false}>
-      <DropdownMenuTrigger
-        ref={triggerRef}
-        aria-label={label}
-        className={cn(
-          "flex h-10 w-12 cursor-pointer items-center justify-center gap-1 rounded-xs px-4 text-[#252525] outline-none hover:bg-[#252525] hover:text-[#eaeaea] focus-visible:ring-2 focus-visible:ring-ring dark:text-[#eaeaea] dark:hover:bg-[#eaeaea] dark:hover:text-[#252525]",
-          className,
-        )}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="size-4.5"
-          aria-hidden="true"
+      <Hint label={label} side="bottom">
+        <DropdownMenuTrigger
+          ref={triggerRef}
+          aria-label={label}
+          className={cn(headerButtonClass, className)}
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-          <path d="M12 3l0 18" />
-          <path d="M12 9l4.65 -4.65" />
-          <path d="M12 14.3l7.37 -7.37" />
-          <path d="M12 19.6l8.85 -8.85" />
-        </svg>
-      </DropdownMenuTrigger>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+            <path d="M12 3l0 18" />
+            <path d="M12 9l4.65 -4.65" />
+            <path d="M12 14.3l7.37 -7.37" />
+            <path d="M12 19.6l8.85 -8.85" />
+          </svg>
+        </DropdownMenuTrigger>
+      </Hint>
       <DropdownMenuContent
         align="end"
         className="rounded-xs border-[#252525] dark:border-[#eaeaea]"

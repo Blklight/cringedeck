@@ -48,10 +48,9 @@ jobs:
           bun run lint
           bun run test
 
+      # Domínio próprio (public/CNAME → cringecards.blklight.dev): servido na raiz, sem basePath.
       - name: Build
         run: bun run build
-        env:
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
 
       - name: Disable Jekyll
         run: touch out/.nojekyll

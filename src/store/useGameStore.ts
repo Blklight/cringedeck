@@ -31,6 +31,7 @@ interface GameStore {
   savedName: string;
   lastRoom: LastRoom | null;
   hydrate: () => void;
+  setName: (name: string) => void;
   createRoom: (name: string) => Promise<void>;
   resumeRoom: () => Promise<void>;
   joinRoom: (code: string, name: string) => Promise<void>;
@@ -135,6 +136,11 @@ export const useGameStore = create<GameStore>((set, get) => {
             ? last
             : null,
       });
+    },
+
+    setName: (name) => {
+      writeStorage(NAME_KEY, name.trim() ? name : null);
+      set({ savedName: name });
     },
 
     createRoom: async (name) => {
