@@ -1,0 +1,2 @@
+export const headerButtonClass =
+  "flex h-8 min-w-10 cursor-pointer items-center justify-center gap-1 rounded-xs px-2 text-[#252525] outline-none transition-colors hover:bg-[#252525] hover:text-[#eaeaea] focus-visible:ring-2 focus-visible:ring-ring aria-expanded:bg-[#252525] aria-expanded:text-[#eaeaea] dark:text-[#eaeaea] dark:aria-expanded:bg-[#eaeaea] dark:aria-expanded:text-[#252525] dark:hover:bg-[#eaeaea] dark:hover:text-[#252525] [&_svg]:size-4.5";

@@ -1,15 +1,35 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
+import { isLocale, type Locale } from "@/i18n/locales";
+import { APP_SLUG } from "@/lib/brand";
 
-export const useLanguageStore = create(
+export interface LanguageStore {
+  language: Locale;
+  chosen: boolean;
+  setLanguage: (language: Locale, chosen?: boolean) => void;
+}
+
+export const useLanguageStore = create<LanguageStore>()(
   persist(
-    (set, get) => ({
-      language: "pt-br",
-      setLanguage: (language: string) => set({ language }),
+    (set) => ({
+      language: "pt-BR",
+      chosen: false,
+      setLanguage: (language, chosen = true) => set({ language, chosen }),
     }),
     {
-      name: "lang-storage",
+      name: `${APP_SLUG}:lang`,
+      version: 1,
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+      skipHydration: true,
+      migrate: (persisted) => {
+        const old = (persisted as { language?: string } | null)?.language;
+        const language: Locale = isLocale(old)
+          ? old
+          : old === "en-us"
+            ? "en"
+            : "pt-BR";
+        return { language, chosen: Boolean(old) } as LanguageStore;
+      },
+    },
+  ),
 );

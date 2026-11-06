@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cringecards/cards/schema.json",
+  "title": "Pacote de cartas",
+  "description": "Um arquivo por pacote e idioma: data/cards/<lang>/<id>.json. A chave do pacote no jogo é \"<lang>.<id>\".",
+  "type": "object",
+  "required": ["id", "lang", "name", "black", "white"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": {
+      "description": "Identificador do pacote dentro do idioma (ex.: \"base\", \"natal\").",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "lang": {
+      "description": "Código BCP 47 do idioma (ex.: \"pt-BR\", \"en\", \"es\").",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+    },
+    "name": {
+      "description": "Nome exibido no lobby.",
+      "type": "string",
+      "minLength": 1
+    },
+    "description": { "type": "string" },
+    "source": {
+      "description": "Origem das cartas (edição impressa, autoria própria, tradução de outro pacote...).",
+      "type": "string"
+    },
+    "license": {
+      "description": "Licença(s) do conteúdo. Use uma lista quando a origem declara mais de uma versão (ex.: PDF diz 2.0, site diz 4.0).",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      ]
+    },
+    "translatedFrom": {
+      "description": "Chave do pacote original, quando este pacote é uma tradução (ex.: \"en.base\").",
+      "type": "string"
+    },
+    "black": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/blackCard" }
+    },
+    "white": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/whiteCard" }
+    }
+  },
+  "$defs": {
+    "cardId": {
+      "description": "Único entre todos os pacotes e estável (não reutilize IDs). Convenção: <lang>.<pacote>.<b|w><número>.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-]+\\.[a-z0-9-]+\\.[bw][0-9]{3,}$"
+    },
+    "whiteCard": {
+      "type": "object",
+      "required": ["id", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/cardId" },
+        "text": { "type": "string", "minLength": 1 },
+        "source": {
+          "description": "Sobrescreve o source do pacote para esta carta.",
+          "type": "string"
+        },
+        "translatedFrom": {
+          "description": "ID da carta original, quando traduzida.",
+          "type": "string"
+        }
+      }
+    },
+    "blackCard": {
+      "type": "object",
+      "required": ["id", "text", "pick"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/cardId" },
+        "text": {
+          "description": "Lacunas são marcadas com ____ (3 ou mais underscores). Sem lacuna, a resposta é exibida após o texto.",
+          "type": "string",
+          "minLength": 1
+        },
+        "pick": {
+          "description": "Quantas cartas brancas cada jogador joga. Deve ser >= número de lacunas.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "source": { "type": "string" },
+        "translatedFrom": { "type": "string" }
+      }
+    }
+  }
+}
