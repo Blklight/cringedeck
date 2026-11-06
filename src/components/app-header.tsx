@@ -46,11 +46,11 @@ export function AppHeader({ showLogo = true }: { showLogo?: boolean }) {
           <Hint label={t("header.language")} side="bottom">
             <DropdownMenuTrigger
               className={cn(headerButtonClass, "px-2.5 font-semibold text-xs")}
-              aria-label={`${t("header.language")}: ${LOCALE_NAMES[locale]}`}
             >
               <Languages aria-hidden="true" />
-              <span aria-hidden="true" className="uppercase">
-                {locale.split("-")[0]}
+              <span className="uppercase">{locale.split("-")[0]}</span>
+              <span className="sr-only">
+                , {t("header.language")}: {LOCALE_NAMES[locale]}
               </span>
             </DropdownMenuTrigger>
           </Hint>
