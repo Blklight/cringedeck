@@ -1,0 +1,37 @@
+{
+  "$schema": "./schema.json",
+  "id": "meu-pacote",
+  "lang": "pt-BR",
+  "name": "Meu pacote",
+  "description": "Copie este arquivo para data/cards/<lang>/<id>.json e registre-o em src/game/cards.ts.",
+  "source": "original-do-projeto",
+  "license": "CC BY-NC-SA 2.0",
+  "black": [
+    {
+      "id": "pt-BR.meu-pacote.b001",
+      "text": "O novo golpe do WhatsApp agora envolve ____.",
+      "pick": 1
+    },
+    {
+      "id": "pt-BR.meu-pacote.b002",
+      "text": "Primeiro ____, depois ____. Clássico.",
+      "pick": 2
+    },
+    {
+      "id": "pt-BR.meu-pacote.b003",
+      "text": "O que tem no fundo da bolsa da minha mãe?",
+      "pick": 1
+    }
+  ],
+  "white": [
+    {
+      "id": "pt-BR.meu-pacote.w001",
+      "text": "Um áudio de 7 minutos."
+    },
+    {
+      "id": "pt-BR.meu-pacote.w002",
+      "text": "O tio do pavê.",
+      "translatedFrom": "en.base.w001"
+    }
+  ]
+}

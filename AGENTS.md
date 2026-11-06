@@ -31,7 +31,8 @@ Sempre rode `bun run typecheck`, `bun run lint` e `bun run test` antes de finali
 - **Componentes de UI:** vivem em `src/components/ui/` e são gerados pelo shadcn (style `base-vega`, sobre Base UI). Adicione com `bunx shadcn@latest add <nome> --overwrite --yes`. Evite editar esses arquivos à mão — mudanças podem ser sobrescritas.
 - **Diferenças Base UI:** use a prop `render` no lugar de `asChild`; `useRender`/`mergeProps` no lugar de `Slot`; atributos `data-horizontal`/`data-vertical` no lugar de `data-[orientation=*]`.
 - **Jogo:** lógica pura em `src/game/engine.ts` (estado do anfitrião), rede P2P em `src/game/session.ts` (PeerJS, anfitrião autoritativo), estado da UI em `src/store/useGameStore.ts`, telas em `src/components/game/`.
-- **Cartas:** pacotes JSON em `data/cards/<lang>/<pacote>.json`, registrados em `src/game/cards.ts`. Lacunas são `____` (3+ underscores). IDs de carta são estáveis e únicos entre pacotes.
+- **Cartas:** pacotes JSON em `data/cards/<lang>/<pacote>.json` (schema em `data/cards/schema.json`, modelo em `data/cards/template.json`), registrados em `src/game/cards.ts`. Lacunas são `____` (3+ underscores). IDs de carta são estáveis e únicos entre pacotes.
+- **PWA:** manifest em `src/app/manifest.ts`, service worker em `public/sw.js` (registrado só em produção por `src/components/service-worker.tsx`). Caminhos públicos passam por `withBasePath` (`src/lib/env.ts`). Ícones em `public/icons/`.
 - **Estilo:** Tailwind v4 com tokens semânticos + `cn()` de `@/lib/utils`. Animações/tokens em `src/app/globals.css`. Respeite sempre light/dark.
 - **API:** use `apiClient` (`src/lib/api-client.ts`) — ele injeta o Bearer do `useAuthStore` e trata refresh em `401`. Envelope de resposta `{ data, error, message }`.
 - **Data fetching:** TanStack Query via `getQueryClient()` (`src/lib/query-client.ts`); o `QueryProvider` já está no `layout.tsx`.

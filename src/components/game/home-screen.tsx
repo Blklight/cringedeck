@@ -91,7 +91,6 @@ export function HomeScreen() {
           <Button
             type="submit"
             variant="outline"
-            size="lg"
             disabled={!hasName || code.trim().length < 3 || busy}
           >
             Entrar

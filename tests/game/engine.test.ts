@@ -70,10 +70,30 @@ describe("pacotes de cartas", () => {
     for (const card of pack.white) expect(countBlanks(card.text)).toBe(0);
   });
 
-  it("o pacote base do Brasil tem 100 pretas e 500 brancas", () => {
-    const base = PACKS.find((p) => packKey(p) === "pt-BR.base");
+  it.each([
+    "pt-BR.base",
+    "en.base",
+  ])("%s tem 100 pretas e 500 brancas", (key) => {
+    const base = PACKS.find((p) => packKey(p) === key);
     expect(base?.black).toHaveLength(100);
     expect(base?.white).toHaveLength(500);
+  });
+
+  it("segue a convenção de IDs <lang>.<pacote>.<b|w><número>", () => {
+    for (const pack of PACKS) {
+      const prefix = `${packKey(pack)}.`;
+      for (const [kind, cards] of [
+        ["b", pack.black],
+        ["w", pack.white],
+      ] as const) {
+        for (const c of cards) {
+          expect(c.id.startsWith(prefix)).toBe(true);
+          expect(c.id.slice(prefix.length)).toMatch(
+            new RegExp(`^${kind}\\d{3,}$`),
+          );
+        }
+      }
+    }
   });
 });
 

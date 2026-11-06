@@ -1,7 +1,8 @@
+import enBase from "../../data/cards/en/base.json";
 import ptBRBase from "../../data/cards/pt-BR/base.json";
 import type { BlackCard, CardPack, PackInfo, WhiteCard } from "./types";
 
-export const PACKS: CardPack[] = [ptBRBase];
+export const PACKS: CardPack[] = [ptBRBase, enBase];
 
 export const packKey = (pack: Pick<CardPack, "id" | "lang">) =>
   `${pack.lang}.${pack.id}`;

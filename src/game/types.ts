@@ -2,6 +2,7 @@ export interface WhiteCard {
   id: string;
   text: string;
   source?: string;
+  translatedFrom?: string;
 }
 
 export interface BlackCard extends WhiteCard {
@@ -15,6 +16,7 @@ export interface CardPack {
   description?: string;
   source?: string;
   license?: string;
+  translatedFrom?: string;
   black: BlackCard[];
   white: WhiteCard[];
 }
