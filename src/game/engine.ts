@@ -218,7 +218,7 @@ export function swapHand(
   if (!player) throw new AppError("unknownPlayer");
   if (player.swapped || player.ready) throw new AppError("alreadySwapped");
   const fresh = draw(s, HAND_SIZE, rng);
-  s.whiteDiscard.push(...player.hand);
+  s.whiteDeck = shuffle([...s.whiteDeck, ...player.hand], rng);
   player.hand = fresh;
   player.swapped = true;
 }

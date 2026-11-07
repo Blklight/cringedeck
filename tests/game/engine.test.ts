@@ -265,8 +265,7 @@ describe("engine", () => {
     swapHand(s, "p0", rng);
     expect(s.players[0].hand).toHaveLength(HAND_SIZE);
     expect(s.players[0].hand.some((c) => before.includes(c))).toBe(false);
-    expect(s.whiteDeck.some((c) => before.includes(c))).toBe(false);
-    expect(s.whiteDiscard).toEqual(expect.arrayContaining(before));
+    expect(s.whiteDeck).toEqual(expect.arrayContaining(before));
     expect(() => swapHand(s, "p0", rng)).toThrow(AppError);
     confirmHand(s, "p0", rng);
     confirmHand(s, "p1", rng);
