@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  deckFor,
   defaultPacksFor,
   getBlack,
+  getPack,
   PACK_LANGS,
   PACKS,
   packKey,
@@ -89,12 +91,39 @@ describe("pacotes de cartas", () => {
   });
 
   it.each([
-    "pt-BR.base",
-    "en.base",
-  ])("%s tem 100 pretas e 500 brancas", (key) => {
-    const base = PACKS.find((p) => packKey(p) === key);
-    expect(base?.black).toHaveLength(100);
-    expect(base?.white).toHaveLength(500);
+    ["pt-BR.base", 100, 500],
+    ["en.base", 100, 500],
+    ["pt-BR.expansao", 200, 589],
+  ] as const)("%s tem %i pretas e %i brancas", (key, black, white) => {
+    const pack = PACKS.find((p) => packKey(p) === key);
+    expect(pack?.black).toHaveLength(black);
+    expect(pack?.white).toHaveLength(white);
+  });
+
+  it("não tem textos repetidos dentro de um pacote", () => {
+    for (const pack of PACKS) {
+      for (const cards of [pack.black, pack.white]) {
+        const texts = cards.map((c) => c.text.trim().toLowerCase());
+        expect(new Set(texts).size).toBe(texts.length);
+      }
+    }
+  });
+
+  it("a expansão contém o baralho base inteiro", () => {
+    const base = getPack("pt-BR.base");
+    const exp = getPack("pt-BR.expansao");
+    const texts = new Set(
+      [...(exp?.black ?? []), ...(exp?.white ?? [])].map((c) => c.text),
+    );
+    for (const c of [...(base?.black ?? []), ...(base?.white ?? [])]) {
+      expect(texts.has(c.text)).toBe(true);
+    }
+  });
+
+  it("não duplica cartas ao combinar base e expansão", () => {
+    const deck = deckFor(["pt-BR.base", "pt-BR.expansao"]);
+    expect(deck.black).toHaveLength(200);
+    expect(deck.white).toHaveLength(589);
   });
 
   it("segue a convenção de IDs <lang>.<pacote>.<b|w><número>", () => {
