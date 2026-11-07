@@ -81,6 +81,9 @@ describe("pacotes de cartas", () => {
     for (const card of pack.black) {
       expect(card.pick).toBeGreaterThanOrEqual(1);
       expect(card.pick).toBeGreaterThanOrEqual(countBlanks(card.text));
+      if (countBlanks(card.text) > 0) {
+        expect(card.pick).toBe(countBlanks(card.text));
+      }
     }
     for (const card of pack.white) expect(countBlanks(card.text)).toBe(0);
   });
