@@ -42,6 +42,9 @@ interface GameStore {
   play: (cards: string[]) => void;
   pick: (key: number) => void;
   next: () => void;
+  swap: () => void;
+  ready: () => void;
+  forceStart: () => void;
   restart: () => void;
   kick: (playerId: string) => void;
   leave: () => void;
@@ -209,6 +212,9 @@ export const useGameStore = create<GameStore>((set, get) => {
     play: (cards) => (host ?? guest)?.play(cards),
     pick: (key) => (host ?? guest)?.pick(key),
     next: () => (host ?? guest)?.next(),
+    swap: () => (host ?? guest)?.swap(),
+    ready: () => (host ?? guest)?.ready(),
+    forceStart: () => host?.forceStart(),
     restart: () => host?.restart(),
     kick: (id) => host?.kick(id),
 

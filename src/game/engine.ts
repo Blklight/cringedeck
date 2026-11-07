@@ -12,7 +12,7 @@ export const HAND_SIZE = 10;
 export const MIN_PLAYERS = 3;
 export const MAX_PLAYERS = 10;
 export const DEFAULT_TARGET_SCORE = 7;
-export const STATE_VERSION = 3;
+export const STATE_VERSION = 4;
 
 export type Rng = () => number;
 
@@ -42,7 +42,15 @@ export function createGame(
     round: 0,
     targetScore: DEFAULT_TARGET_SCORE,
     players: [
-      { id: hostId, name: hostName, score: 0, connected: true, hand: [] },
+      {
+        id: hostId,
+        name: hostName,
+        score: 0,
+        connected: true,
+        hand: [],
+        swapped: false,
+        ready: false,
+      },
     ],
     lang: deckLang,
     packs: defaultPacksFor(deckLang),
@@ -119,10 +127,13 @@ export function joinPlayer(
     score: 0,
     connected: true,
     hand: [],
+    swapped: false,
+    ready: false,
   };
   s.players.push(player);
   if (s.phase !== "lobby" && s.phase !== "ended") {
     player.hand = draw(s, HAND_SIZE, rng);
+    player.ready = true;
   }
   return player;
 }
@@ -168,11 +179,65 @@ export function startGame(s: HostState, rng: Rng = Math.random) {
   for (const p of s.players) {
     p.hand = [];
     p.score = 0;
+    p.swapped = false;
+    p.ready = false;
   }
+  refillHands(s, rng);
   s.round = 1;
   s.gameOver = false;
-  s.czarId = s.players[Math.floor(rng() * s.players.length)].id;
+  s.czarId = null;
+  s.blackId = null;
+  s.submissions = [];
+  s.order = [];
+  s.winnerKey = null;
+  s.phase = "mulligan";
+}
+
+function beginGame(s: HostState, rng: Rng) {
+  const connected = s.players.filter((p) => p.connected);
+  if (connected.length === 0) return;
+  s.czarId = connected[Math.floor(rng() * connected.length)].id;
   beginRound(s, rng);
+}
+
+function maybeBeginGame(s: HostState, rng: Rng) {
+  if (s.phase !== "mulligan") return;
+  const connected = s.players.filter((p) => p.connected);
+  if (connected.length > 0 && connected.every((p) => p.ready)) {
+    beginGame(s, rng);
+  }
+}
+
+export function swapHand(
+  s: HostState,
+  playerId: string,
+  rng: Rng = Math.random,
+) {
+  if (s.phase !== "mulligan") throw new AppError("notMulliganPhase");
+  const player = findPlayer(s, playerId);
+  if (!player) throw new AppError("unknownPlayer");
+  if (player.swapped || player.ready) throw new AppError("alreadySwapped");
+  const fresh = draw(s, HAND_SIZE, rng);
+  s.whiteDeck = shuffle([...s.whiteDeck, ...player.hand], rng);
+  player.hand = fresh;
+  player.swapped = true;
+}
+
+export function confirmHand(
+  s: HostState,
+  playerId: string,
+  rng: Rng = Math.random,
+) {
+  if (s.phase !== "mulligan") throw new AppError("notMulliganPhase");
+  const player = findPlayer(s, playerId);
+  if (!player) throw new AppError("unknownPlayer");
+  player.ready = true;
+  maybeBeginGame(s, rng);
+}
+
+export function forceBegin(s: HostState, rng: Rng = Math.random) {
+  if (s.phase !== "mulligan") throw new AppError("notMulliganPhase");
+  beginGame(s, rng);
 }
 
 function beginRound(s: HostState, rng: Rng) {
@@ -184,7 +249,7 @@ function beginRound(s: HostState, rng: Rng) {
   s.phase = "playing";
 }
 
-function nextCzar(s: HostState): string {
+export function nextCzar(s: HostState): string {
   const idx = s.players.findIndex((p) => p.id === s.czarId);
   for (let step = 1; step <= s.players.length; step++) {
     const candidate = s.players[(idx + step) % s.players.length];
@@ -256,8 +321,17 @@ function discardSubmissions(s: HostState) {
   s.submissions = [];
 }
 
-export function nextRound(s: HostState, rng: Rng = Math.random) {
+export function canAdvance(s: HostState, playerId: string): boolean {
+  if (s.phase !== "reveal") return false;
+  if (s.gameOver) return playerId === s.hostId;
+  return playerId === nextCzar(s);
+}
+
+export function nextRound(s: HostState, rng: Rng = Math.random, by?: string) {
   if (s.phase !== "reveal") throw new AppError("roundNotOver");
+  if (by !== undefined && !canAdvance(s, by)) {
+    throw new AppError("onlyNextCzar");
+  }
   discardSubmissions(s);
   if (s.gameOver) {
     s.phase = "ended";
@@ -292,6 +366,10 @@ export function setConnected(
   const player = findPlayer(s, playerId);
   if (!player) return;
   player.connected = connected;
+  if (s.phase === "mulligan") {
+    if (!connected) maybeBeginGame(s, rng);
+    return;
+  }
   if (connected || !inRound(s)) return;
   if (playerId === s.czarId) {
     skipRound(s, rng);
@@ -312,6 +390,10 @@ export function removePlayer(
   const successor = wasCzar ? nextCzar(s) : null;
   s.whiteDiscard.push(...player.hand);
   s.players = s.players.filter((p) => p.id !== playerId);
+  if (s.phase === "mulligan") {
+    maybeBeginGame(s, rng);
+    return;
+  }
   const mine = s.submissions.findIndex((sub) => sub.playerId === playerId);
   if (mine >= 0) {
     s.whiteDiscard.push(...s.submissions[mine].cards);
@@ -355,8 +437,19 @@ export function backToLobby(s: HostState) {
   for (const p of s.players) {
     p.hand = [];
     p.score = 0;
+    p.swapped = false;
+    p.ready = false;
   }
   s.players = s.players.filter((p) => p.connected);
+}
+
+export function playAgain(s: HostState, rng: Rng = Math.random) {
+  backToLobby(s);
+  try {
+    startGame(s, rng);
+  } catch (err) {
+    if (!(err instanceof AppError)) throw err;
+  }
 }
 
 export function buildView(s: HostState, playerId: string): GameView {
@@ -369,6 +462,8 @@ export function buildView(s: HostState, playerId: string): GameView {
     isHost: p.id === s.hostId,
     isCzar: p.id === s.czarId,
     submitted: s.submissions.some((sub) => sub.playerId === p.id),
+    ready: p.ready,
+    swapped: p.swapped,
   }));
   const mine = s.submissions.find((sub) => sub.playerId === playerId);
   const revealed = s.phase === "reveal" || s.phase === "ended";
@@ -390,6 +485,7 @@ export function buildView(s: HostState, playerId: string): GameView {
     packs: s.packs,
     players,
     czarId: s.czarId,
+    nextCzarId: s.phase === "reveal" && !s.gameOver ? nextCzar(s) : null,
     black: (s.blackId && getBlack(s.blackId)) || null,
     hand: me?.hand ?? [],
     mySubmission: mine?.cards ?? null,

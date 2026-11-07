@@ -53,12 +53,14 @@ export const ptBR = {
   "table.roundOver": "Rodada encerrada.",
   "table.seeResults": "Ver resultado",
   "table.nextRound": "Próxima rodada",
-  "table.waitingCzarNext": "Aguardando o Czar seguir para a próxima rodada.",
+  "table.waitingCzarNext":
+    "Aguardando {name}, o próximo Czar, iniciar a próxima rodada.",
+  "table.waitingHostResults": "Aguardando o anfitrião mostrar o resultado.",
 
   "end.winner": "{name} venceu!",
   "end.playAgain": "Jogar de novo",
   "end.leave": "Sair",
-  "end.waitingHost": "Aguardando o anfitrião reabrir a sala…",
+  "end.waitingHost": "Aguardando o anfitrião começar uma nova partida…",
 
   "header.language": "Idioma",
   "header.install": "Instalar app",
@@ -78,7 +80,8 @@ export const ptBR = {
   "about.close": "Fechar",
   "rules.open": "Regras",
   "rules.title": "Como jogar",
-  "rules.step1": "Cada jogador começa com 10 cartas amarelas (respostas).",
+  "rules.step1":
+    "Cada jogador começa com 10 cartas amarelas (respostas) e pode trocar a mão uma única vez antes de começar.",
   "rules.step2":
     "A cada rodada, um jogador é o Czar e revela uma carta azul: uma pergunta ou uma frase com lacuna.",
   "rules.step3":
@@ -120,8 +123,24 @@ export const ptBR = {
   "hint.selectCards_one": "Selecione 1 carta da sua mão",
   "hint.selectCards_other": "Selecione {count} cartas da sua mão, na ordem",
   "hint.selectAnswer": "Clique em uma resposta para selecioná-la",
-  "hint.nextRound": "Começa a próxima rodada com um novo Czar",
-  "hint.playAgain": "Volta ao lobby com os mesmos jogadores",
+  "hint.nextRound": "Só o próximo Czar pode começar a próxima rodada",
+  "hint.playAgain": "Começa uma nova partida com os mesmos jogadores",
+  "mulligan.title": "Confira sua mão",
+  "mulligan.intro":
+    "Você pode trocar a mão uma única vez. Quando estiver satisfeito, toque em Pronto.",
+  "mulligan.swapped": "Mão trocada. Se estiver tudo certo, toque em Pronto.",
+  "mulligan.swap": "Trocar mão",
+  "mulligan.swapUsed": "Você já usou sua troca",
+  "mulligan.done": "Pronto",
+  "mulligan.ready": "Pronto",
+  "mulligan.deciding": "Decidindo…",
+  "mulligan.waiting_one": "Aguardando 1 jogador ficar pronto…",
+  "mulligan.waiting_other": "Aguardando {count} jogadores ficarem prontos…",
+  "mulligan.forceStart": "Começar agora",
+  "hint.swapHand": "Descarta a mão e compra 10 cartas novas (só uma vez)",
+  "hint.forceStart": "Começa sem esperar quem ainda não ficou pronto",
+  "errors.notMulliganPhase": "Não é hora de trocar a mão.",
+  "errors.alreadySwapped": "Você já trocou ou confirmou sua mão.",
   "theme.toggle": "Alternar tema",
   "theme.light": "Claro",
   "theme.dark": "Escuro",
@@ -144,7 +163,7 @@ export const ptBR = {
   "errors.needPack": "Escolha ao menos um pacote de cartas.",
   "errors.notEnoughCards": "Os pacotes escolhidos não têm cartas suficientes.",
   "errors.unknownLanguage": "Não há cartas nesse idioma.",
-  "errors.onlyCzarOrHost": "Só o Czar ou o anfitrião avança a rodada.",
+  "errors.onlyNextCzar": "Só o próximo Czar avança a rodada.",
   "errors.signalingUnreachable":
     "Não foi possível alcançar o servidor de conexão.",
   "errors.signalingError": "Erro de conexão com o servidor de sinalização.",

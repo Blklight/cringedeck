@@ -1,6 +1,6 @@
 "use client";
 
-import { Crown, LogOut, Trophy, Wifi, WifiOff } from "lucide-react";
+import { Crown, LogOut, Shuffle, Trophy, Wifi, WifiOff } from "lucide-react";
 import { useState } from "react";
 import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,21 @@ function Scoreboard({ view }: { view: GameView }) {
             , {t("a11y.points", { count: p.score })}
             {p.connected ? "" : `, ${t("lobby.offline")}`}
           </span>
+          {view.phase === "mulligan" && p.connected ? (
+            <>
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "size-1.5 rounded-full",
+                  p.ready ? "bg-emerald-500" : "bg-muted-foreground/40",
+                )}
+                title={p.ready ? t("mulligan.ready") : t("mulligan.deciding")}
+              />
+              <span className="sr-only">
+                , {p.ready ? t("mulligan.ready") : t("mulligan.deciding")}
+              </span>
+            </>
+          ) : null}
           {view.phase === "playing" && !p.isCzar && p.connected ? (
             <>
               <span
@@ -110,6 +125,58 @@ function Hand({ view }: { view: GameView }) {
             order={selected.indexOf(card) + 1}
             onClick={() => toggle(card)}
           />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Mulligan({ view, isHost }: { view: GameView; isHost: boolean }) {
+  const t = useT();
+  const swap = useGameStore((s) => s.swap);
+  const ready = useGameStore((s) => s.ready);
+  const forceStart = useGameStore((s) => s.forceStart);
+  const me = view.players.find((p) => p.id === view.me);
+  const waiting = view.players.filter((p) => p.connected && !p.ready).length;
+  const done = Boolean(me?.ready);
+
+  return (
+    <section className="space-y-4">
+      <div className="space-y-1">
+        <h2 className="font-semibold">{t("mulligan.title")}</h2>
+        <p className="text-muted-foreground text-sm">
+          {done
+            ? t("mulligan.waiting", { count: waiting })
+            : me?.swapped
+              ? t("mulligan.swapped")
+              : t("mulligan.intro")}
+        </p>
+      </div>
+      {done ? null : (
+        <div className="flex flex-wrap gap-2">
+          <Hint
+            label={me?.swapped ? t("mulligan.swapUsed") : t("hint.swapHand")}
+            wrapClassName="inline-flex"
+          >
+            <Button variant="outline" disabled={me?.swapped} onClick={swap}>
+              <Shuffle aria-hidden="true" /> {t("mulligan.swap")}
+            </Button>
+          </Hint>
+          <Button className={ctaClass} onClick={ready}>
+            {t("mulligan.done")}
+          </Button>
+        </div>
+      )}
+      {isHost ? (
+        <Hint label={t("hint.forceStart")} wrapClassName="inline-flex">
+          <Button variant="ghost" size="xs" onClick={forceStart}>
+            {t("mulligan.forceStart")}
+          </Button>
+        </Hint>
+      ) : null}
+      <div className="grid grid-cols-2 gap-4 pt-3 sm:grid-cols-3 lg:grid-cols-5">
+        {view.hand.map((card) => (
+          <WhiteCardView key={card} lang={view.lang} text={whiteText(card)} />
         ))}
       </div>
     </section>
@@ -257,7 +324,8 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
 
   const iAmCzar = view.czarId === view.me;
   const czar = view.players.find((p) => p.isCzar);
-  const canAdvance = iAmCzar || isHost;
+  const nextCzar = view.players.find((p) => p.id === view.nextCzarId);
+  const canAdvance = view.gameOver ? isHost : view.nextCzarId === view.me;
   const winnerId = view.submissions.find(
     (s) => s.key === view.winnerKey,
   )?.playerId;
@@ -304,6 +372,8 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
 
       {view.phase === "ended" ? (
         <Standings view={view} isHost={isHost} />
+      ) : view.phase === "mulligan" ? (
+        <Mulligan view={view} isHost={isHost} />
       ) : (
         <>
           <div className="flex flex-col items-start gap-4 sm:flex-row">
@@ -346,7 +416,11 @@ export function Table({ view, isHost }: { view: GameView; isHost: boolean }) {
               ) : null}
               {view.phase === "reveal" && !canAdvance ? (
                 <p className="text-muted-foreground text-xs">
-                  {t("table.waitingCzarNext")}
+                  {view.gameOver
+                    ? t("table.waitingHostResults")
+                    : t("table.waitingCzarNext", {
+                        name: nextCzar?.name ?? t("table.someone"),
+                      })}
                 </p>
               ) : null}
             </div>
