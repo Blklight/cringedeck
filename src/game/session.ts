@@ -1,12 +1,14 @@
 import type { DataConnection, Peer } from "peerjs";
 import { APP_SLUG } from "@/lib/brand";
 import {
-  backToLobby,
   buildView,
   chooseWinner,
+  confirmHand,
   createGame,
+  forceBegin,
   joinPlayer,
   nextRound,
+  playAgain,
   removePlayer,
   STATE_VERSION,
   setConnected,
@@ -15,6 +17,7 @@ import {
   setTargetScore,
   startGame,
   submitCards,
+  swapHand,
 } from "./engine";
 import { AppError, type ErrorCode, type Notice, toNotice } from "./errors";
 import type { ClientMsg, GameView, HostMsg, HostState } from "./types";
@@ -212,11 +215,10 @@ export class HostSession {
     this.run(() => {
       if (msg.t === "play") submitCards(this.state, playerId, msg.cards);
       else if (msg.t === "pick") chooseWinner(this.state, playerId, msg.key);
+      else if (msg.t === "swap") swapHand(this.state, playerId);
+      else if (msg.t === "ready") confirmHand(this.state, playerId);
       else if (msg.t === "next") {
-        if (playerId !== this.state.czarId && playerId !== this.state.hostId) {
-          throw new AppError("onlyCzarOrHost");
-        }
-        nextRound(this.state);
+        nextRound(this.state, Math.random, playerId);
       }
     }, conn);
   }
@@ -269,11 +271,23 @@ export class HostSession {
   }
 
   next() {
-    this.run(() => nextRound(this.state));
+    this.run(() => nextRound(this.state, Math.random, this.state.hostId));
+  }
+
+  swap() {
+    this.run(() => swapHand(this.state, this.state.hostId));
+  }
+
+  ready() {
+    this.run(() => confirmHand(this.state, this.state.hostId));
+  }
+
+  forceStart() {
+    this.run(() => forceBegin(this.state));
   }
 
   restart() {
-    this.run(() => backToLobby(this.state));
+    this.run(() => playAgain(this.state));
   }
 
   kick(playerId: string) {
@@ -429,6 +443,14 @@ export class GuestSession {
 
   next() {
     this.send({ t: "next" });
+  }
+
+  swap() {
+    this.send({ t: "swap" });
+  }
+
+  ready() {
+    this.send({ t: "ready" });
   }
 
   leave() {

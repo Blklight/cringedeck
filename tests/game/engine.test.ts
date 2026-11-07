@@ -10,16 +10,19 @@ import {
 import {
   buildView,
   chooseWinner,
+  confirmHand,
   createGame,
   HAND_SIZE,
   joinPlayer,
   nextRound,
+  playAgain,
   removePlayer,
   setConnected,
   setDeckLanguage,
   setPacks,
   startGame,
   submitCards,
+  swapHand,
 } from "@/game/engine";
 import { AppError } from "@/game/errors";
 import { countBlanks, fillBlanks } from "@/game/text";
@@ -38,6 +41,7 @@ function newGame(players = 3): HostState {
   const s = createGame("ABCDE", "p0", "Ana");
   for (let i = 1; i < players; i++) joinPlayer(s, `p${i}`, `Jogador ${i}`, rng);
   startGame(s, rng);
+  for (const p of s.players) confirmHand(s, p.id, rng);
   return s;
 }
 
@@ -169,6 +173,7 @@ describe("engine", () => {
     joinPlayer(s, "p1", "B", rng);
     joinPlayer(s, "p2", "C", rng);
     startGame(s, rng);
+    for (const p of s.players) confirmHand(s, p.id, rng);
     const all = [...s.players.flatMap((p) => p.hand), s.blackId as string];
     expect(all.every((id) => id.startsWith("en."))).toBe(true);
   });
@@ -213,6 +218,74 @@ describe("engine", () => {
     expect(s.czarId).not.toBe(czar);
     expect(s.round).toBe(2);
     expect(s.players.every((p) => p.hand.length === HAND_SIZE)).toBe(true);
+  });
+
+  it("embaralha a ordem das respostas a cada rodada", () => {
+    const orders = new Set<string>();
+    for (let i = 0; i < 30; i++) {
+      const s = newGame();
+      playAll(s);
+      orders.add(s.order.join());
+    }
+    expect(orders.size).toBeGreaterThan(1);
+  });
+
+  it("só o próximo Czar avança a rodada", () => {
+    const s = newGame();
+    playAll(s);
+    chooseWinner(s, s.czarId as string, s.order[0]);
+    const next = buildView(s, s.hostId).nextCzarId as string;
+    const other = s.players.find((p) => p.id !== next)?.id as string;
+    expect(() => nextRound(s, Math.random, other)).toThrow(AppError);
+    nextRound(s, Math.random, next);
+    expect(s.czarId).toBe(next);
+  });
+
+  it("jogar de novo reinicia a partida com os mesmos jogadores", () => {
+    const s = newGame();
+    s.targetScore = 1;
+    playAll(s);
+    chooseWinner(s, s.czarId as string, s.order[0]);
+    nextRound(s);
+    playAgain(s);
+    expect(s.phase).toBe("mulligan");
+    expect(s.round).toBe(1);
+    expect(s.players.every((p) => p.score === 0)).toBe(true);
+  });
+
+  it("troca de mão: uma vez só, e o jogo começa quando todos ficam prontos", () => {
+    const rng = seeded();
+    const s = createGame("ABCDE", "p0", "Ana");
+    joinPlayer(s, "p1", "B", rng);
+    joinPlayer(s, "p2", "C", rng);
+    startGame(s, rng);
+    expect(s.phase).toBe("mulligan");
+    expect(s.czarId).toBeNull();
+    const before = [...s.players[0].hand];
+    swapHand(s, "p0", rng);
+    expect(s.players[0].hand).toHaveLength(HAND_SIZE);
+    expect(s.players[0].hand.some((c) => before.includes(c))).toBe(false);
+    expect(() => swapHand(s, "p0", rng)).toThrow(AppError);
+    confirmHand(s, "p0", rng);
+    confirmHand(s, "p1", rng);
+    expect(s.phase).toBe("mulligan");
+    confirmHand(s, "p2", rng);
+    expect(s.phase).toBe("playing");
+    expect(s.czarId).not.toBeNull();
+    expect(() => swapHand(s, "p1", rng)).toThrow(AppError);
+  });
+
+  it("desconexão na troca de mão não trava o início", () => {
+    const rng = seeded();
+    const s = createGame("ABCDE", "p0", "Ana");
+    joinPlayer(s, "p1", "B", rng);
+    joinPlayer(s, "p2", "C", rng);
+    startGame(s, rng);
+    confirmHand(s, "p0", rng);
+    confirmHand(s, "p1", rng);
+    setConnected(s, "p2", false, rng);
+    expect(s.phase).toBe("playing");
+    expect(s.czarId).not.toBe("p2");
   });
 
   it("termina o jogo ao atingir a pontuação alvo", () => {

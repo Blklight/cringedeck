@@ -31,7 +31,13 @@ export interface PackInfo {
   white: number;
 }
 
-export type Phase = "lobby" | "playing" | "judging" | "reveal" | "ended";
+export type Phase =
+  | "lobby"
+  | "mulligan"
+  | "playing"
+  | "judging"
+  | "reveal"
+  | "ended";
 
 export interface PlayerRec {
   id: string;
@@ -39,6 +45,8 @@ export interface PlayerRec {
   score: number;
   connected: boolean;
   hand: string[];
+  swapped: boolean;
+  ready: boolean;
 }
 
 export interface Submission {
@@ -75,6 +83,8 @@ export interface PlayerView {
   isHost: boolean;
   isCzar: boolean;
   submitted: boolean;
+  ready: boolean;
+  swapped: boolean;
 }
 
 export interface SubmissionView {
@@ -93,6 +103,7 @@ export interface GameView {
   packs: string[];
   players: PlayerView[];
   czarId: string | null;
+  nextCzarId: string | null;
   black: BlackCard | null;
   hand: string[];
   mySubmission: string[] | null;
@@ -106,6 +117,8 @@ export type ClientMsg =
   | { t: "play"; cards: string[] }
   | { t: "pick"; key: number }
   | { t: "next" }
+  | { t: "swap" }
+  | { t: "ready" }
   | { t: "leave" };
 
 export type HostMsg =
