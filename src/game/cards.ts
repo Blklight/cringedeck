@@ -1,8 +1,9 @@
 import enBase from "../../data/cards/en/base.json";
 import ptBRBase from "../../data/cards/pt-BR/base.json";
+import ptBRExpansao from "../../data/cards/pt-BR/expansao.json";
 import type { BlackCard, CardPack, PackInfo, WhiteCard } from "./types";
 
-export const PACKS: CardPack[] = [ptBRBase, enBase];
+export const PACKS: CardPack[] = [ptBRBase, ptBRExpansao, enBase];
 
 export const packKey = (pack: Pick<CardPack, "id" | "lang">) =>
   `${pack.lang}.${pack.id}`;
@@ -29,11 +30,23 @@ export const whiteText = (id: string) => whiteById.get(id)?.text ?? "???";
 
 export const getBlack = (id: string) => blackById.get(id);
 
+function uniqueByText(cards: { id: string; text: string }[]) {
+  const seen = new Set<string>();
+  return cards
+    .filter((c) => {
+      const key = c.text.trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((c) => c.id);
+}
+
 export function deckFor(keys: string[]) {
   const packs = keys.flatMap((k) => packsByKey.get(k) ?? []);
   return {
-    white: packs.flatMap((p) => p.white.map((c) => c.id)),
-    black: packs.flatMap((p) => p.black.map((c) => c.id)),
+    white: uniqueByText(packs.flatMap((p) => p.white)),
+    black: uniqueByText(packs.flatMap((p) => p.black)),
   };
 }
 

@@ -5,6 +5,7 @@ Cada pacote é um JSON em `data/cards/<lang>/<id>.json`, validado por [`schema.j
 | Pacote     | Idioma | Pretas | Brancas | Origem                                  |
 | ---------- | ------ | -----: | ------: | --------------------------------------- |
 | `pt-BR.base` | pt-BR  |    100 |     500 | Print & Play Brasil (OCR + revisão)     |
+| `pt-BR.expansao` | pt-BR |   200 |     589 | Base pt-BR + 100 azuis originais (`b101`–`b200`) + 89 amarelas inéditas do `en.base`, traduzidas (`w501`–`w589`) |
 | `en.base`    | en     |    100 |     500 | Print & Play US 2022 (OCR + revisão)    |
 
 ## Licença e marca
@@ -21,6 +22,7 @@ O conteúdo das cartas vem de Cards Against Humanity, distribuído sob Creative 
 - **IDs** são únicos entre todos os pacotes e nunca reaproveitados: `<lang>.<pacote>.<b|w><número>`.
 - **Lacunas** nas cartas pretas: `____` (3+ underscores). `pick` deve ser maior ou igual ao número de lacunas; cartas sem lacuna (perguntas) mostram a resposta após o texto.
 - **Traduções** ficam em um pacote próprio do idioma de destino, com `translatedFrom` no pacote (`"en.base"`) e, opcionalmente, em cada carta (`"en.base.w001"`).
+- **Pacotes que se sobrepõem** (como `pt-BR.expansao`, que inclui o base) podem repetir textos de outro pacote com IDs próprios: ao combinar pacotes no lobby, `deckFor` descarta textos repetidos.
 - **Novo pacote:** crie o JSON e adicione-o à lista `PACKS` em `src/game/cards.ts`. Os testes (`tests/game/engine.test.ts`) validam IDs, lacunas e `pick`.
 
 ## Extração dos PDFs
